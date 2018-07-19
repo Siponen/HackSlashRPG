@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/simple_charge.wav-555aecb15b6f19a69d6ea4e2d1e29029.sample"
+
+[deps]
+
+source_file="res://assets/sound/simple_charge.wav"
+source_md5="5747f50f1b0772b754526c085a4db09f"
+
+dest_files=[ "res://.import/simple_charge.wav-555aecb15b6f19a69d6ea4e2d1e29029.sample" ]
+dest_md5="8bcb0f638ec2a4d52989ff9f36aa68b7"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

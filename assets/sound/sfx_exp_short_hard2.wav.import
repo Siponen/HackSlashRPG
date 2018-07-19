@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sfx_exp_short_hard2.wav-b676e3c42f2199c570adb792eeb0e6f4.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx_exp_short_hard2.wav"
+source_md5="efc3806855edf77eed9f2265b5840322"
+
+dest_files=[ "res://.import/sfx_exp_short_hard2.wav-b676e3c42f2199c570adb792eeb0e6f4.sample" ]
+dest_md5="c6ad67a00b9d819e913218ac7c8d6124"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
