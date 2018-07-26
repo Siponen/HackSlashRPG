@@ -45,7 +45,6 @@ func _ready():
 ############
 # Update
 #############
-
 func  _process(delta):
 	setPlayerOrentation()
 	var velocity = getPlayerMovementVelocity()

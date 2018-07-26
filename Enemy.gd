@@ -4,12 +4,14 @@ signal on_hit
 signal on_stun
 signal on_death
 
+var BehaviourTree = preload("res://assets/scripts/BehaviourTree.gd")
+
 func _ready():
 	connect("on_hit", self, "onHit")
 	connect("on_stun", self, "onStun")
 	connect("on_death", self, "onDeath")
 	pass
-	
+
 func randomMoveAround(delta):
 	pass
 

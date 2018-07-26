@@ -232,6 +232,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 [node name="Abilities" type="Spatial" parent="Player" index="3"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="basic_attack" parent="Player/Abilities" index="0" instance=ExtResource( 3 )]
@@ -315,6 +316,7 @@ data = {
 
 [node name="Floor" type="StaticBody" parent="World" index="0"]
 
+editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
