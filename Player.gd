@@ -12,14 +12,11 @@ var centerPosition
 var playerDodgePosition = Vector3()
 
 #PlayerStates
-#Normal
-#Stunned/Lockdowned
-#FixedMovement
 var isPlayerInFixedMovement = false
+var readyToAttack = true
 var playerNewPosition = Vector3()
-var playerMovementTime = 1
+var playerMovementTime = 0.4
 var playerCurrentMovementTime = 0
-#Death
 
 #PlayerMovement
 var playerMovementVelocity = Vector2()
@@ -27,16 +24,6 @@ var playerMovementVelocity = Vector2()
 #Debuffs
 var isSilenced = false
 var isAttacking = false
-
-#Attacks
-var attackCooldown = 0.5
-var attackTimer = 0
-
-var heavyAttackCooldown = 2.0
-var heavyAttackTimer = 0
-
-var ultimateAttackCooldown = 3
-var ultimateAttackTimer = 0
 
 #Ability data
 var Ability = preload("res://Ability.gd")
@@ -47,32 +34,17 @@ var ultimates = []
 var animPlayer
 var animTreePlayer
 
-#Weapon determines Weapon Basic Attack and Weapon Heavy Attack
-#Some abilities are restricted to races, afflictions like werewolf and undead
-#Some abilities can only be learned through factions or trainers
-
 func _ready():
 	camera = $Camera
 	viewport = get_viewport()
 	animPlayer = $AnimationPlayer
 	animTreePlayer = $AnimationTreePlayer
 	centerPosition = viewport.size*0.5
-	
-	var meleeBasicAttack = Ability.new("melee_basic_attack",10,0.8)
-	abilities.append(meleeBasicAttack)
-	
-	var heavyAttack = Ability.new("heavy",20,1)
-	abilities.append(heavyAttack)
-	
-	var counterAttack = Ability.new("counter",10,1)
-	abilities.append(counterAttack)
-	
-	var shieldReflectAttack = Ability.new("shield_reflect",0,1)
-	abilities.append(shieldReflectAttack)
-	
-	var ultimate = Ability.new("ultimate",100,1)
-	ultimates.append(ultimate)
 	pass
+
+############
+# Update
+#############
 
 func  _process(delta):
 	setPlayerOrentation()
@@ -80,43 +52,26 @@ func  _process(delta):
 	playerMovementVelocity.x = velocity.x
 	playerMovementVelocity.y = velocity.z
 	
-	#Resolve cooldowns
-	if attackTimer > 0:
-		attackTimer -= delta
-	if heavyAttackTimer > 0:
-		heavyAttackTimer -= delta
-	if ultimateAttackTimer > 0:
-		ultimateAttackTimer -= delta
-		
-	#Ability input
+	#Evasive input, can always be transitioned into from other attacks
 	if isSilenced == false:
-		if Input.is_action_just_pressed("attack"):
-			if attackTimer <= 0:
-				$basic_attack/AnimationPlayer.play("Attack")
-				attackTimer = attackCooldown
-				print("Player Attack")
-		
-		elif Input.is_action_just_pressed("heavy_attack"):
-			if heavyAttackTimer <= 0:
-				$heavy_attack/AnimationPlayer.play("Attack")
-				heavyAttackTimer = heavyAttackCooldown
-				print("Player Heavy Attack")
-		
-		elif Input.is_action_just_pressed("ultimate_attack"):
-			if ultimateAttackTimer <= 0:
-				animPlayer.play("Ultimate")
-				ultimateAttackTimer = ultimateAttackCooldown
-				print("Player Ultimate Attack")
-		
-		elif Input.is_action_just_pressed("dodge"):
+		if Input.is_action_just_pressed("dodge"):
 			var playerPosition = global_transform.origin
-			var playerForward = global_transform.basis.x # TODO basis.z is somehow right vector, while it should be forward.
+			var playerForward = global_transform.basis.z # TODO basis.z is somehow right-direction vector, while it should be forward. Related to rotation of player's kinematic body
 			playerForward.y = 0
 			playerNewPosition = playerPosition + playerForward * 30;
 			isPlayerInFixedMovement = true
 			playerCurrentMovementTime = 0
-			playerMovementTime = 1.0
 			$AnimationPlayer.play("Dodge")
+	
+	#Ability input
+	if isSilenced == false and readyToAttack:
+		if Input.is_action_pressed("attack"):
+			if $Abilities/basic_attack.onCooldown == false:
+				$Abilities/basic_attack.attack()
+		
+		if Input.is_action_just_pressed("heavy_attack"):
+			if $Abilities/heavy_attack.onCooldown == false:
+				$Abilities/heavy_attack.attack()
 	pass
 
 func setPlayerOrentation():
@@ -151,31 +106,35 @@ func getPlayerMovementVelocity():
 
 	return velocity
 
+##############
+# Physics
+##############
 func _physics_process(delta):
-	physicsMovePlayer(delta)
+	if isPlayerInFixedMovement:
+		physicsFixedMovePlayer(delta)
+	else:
+		physicsMovePlayer(delta)
 	pass
+
+func physicsFixedMovePlayer(delta):
+	var playerPosition = global_transform.origin
+	var percentProgress = playerCurrentMovementTime / playerMovementTime
+	var nextPositionX = lerp(playerPosition.x, playerNewPosition.x, percentProgress)
+	var nextPositionZ = lerp(playerPosition.z, playerNewPosition.z, percentProgress)
+	
+	var velocity = Vector3()
+	velocity.x = nextPositionX - playerPosition.x
+	velocity.z = nextPositionZ - playerPosition.z
+		
+	if playerCurrentMovementTime > playerMovementTime:
+		isPlayerInFixedMovement = false
+		print("Done!", "End position: ", global_transform.origin)
+		
+	playerCurrentMovementTime += delta
+	move_and_collide(velocity)
 
 func physicsMovePlayer(delta):
 	var velocity = Vector3()
-	
-	#Fixed player movement to point
-	if isPlayerInFixedMovement:
-		var playerPosition = global_transform.origin
-		var nextPositionX = lerp(playerPosition.x, playerNewPosition.x, playerCurrentMovementTime)
-		var nextPositionZ = lerp(playerPosition.z, playerNewPosition.z, playerCurrentMovementTime)
-		velocity.x = nextPositionX - playerPosition.x
-		velocity.z = nextPositionZ - playerPosition.z
-		
-		print("Velocity", velocity," From:", playerPosition," To:", playerNewPosition," weight: ", playerCurrentMovementTime)
-		
-		if playerCurrentMovementTime > playerMovementTime:
-			isPlayerInFixedMovement = false
-			print("Done!", "End position: ", global_transform.origin)
-		
-		playerCurrentMovementTime += delta
-	else:
-		#Free player movement
-		velocity.x = playerMovementVelocity.x
-		velocity.z = playerMovementVelocity.y
-	
+	velocity.x = playerMovementVelocity.x
+	velocity.z = playerMovementVelocity.y
 	move_and_collide(velocity)

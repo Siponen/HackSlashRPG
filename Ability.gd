@@ -1,21 +1,23 @@
-var attackNode = null
+extends Spatial
+
 var attackName
-var damage = 0
+var animPlayer
 var cooldown = 0
 var timer = 0
 var onCooldown = false
 
-func _init(_attackName, _damage, _cooldownTime):
+func _init(_attackName, _cooldownTime):
 	attackName = _attackName
-	damage = _damage
 	cooldown = _cooldownTime
 
-func update(delta):
+func _process(delta):
 	if onCooldown:
 		timer += delta
-		if timer > cooldown:
+		if timer >= cooldown:
 			onCooldown = false
+			timer = 0
 
 func setOnCooldown():
 	timer = 0
 	onCooldown = true
+	pass

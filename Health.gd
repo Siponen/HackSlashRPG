@@ -1,3 +1,5 @@
+#Manages health and status ailments
+
 extends Node
 
 var animPlayer
@@ -16,7 +18,7 @@ func _ready():
 	connect("death",self,"onDeath")
 	parent = get_parent()
 	animPlayer = parent.get_node("AnimationPlayer")
-	health = 100
+	health = 9999999999
 	pass
 
 func onDamage(damage):
@@ -32,8 +34,20 @@ func onDamage(damage):
 func onHeal(healPoints):
 	health += healPoints
 	pass
-
+	
 func onDeath():
 	animPlayer.play("Death")
 	print(parent.name," dies")
+	pass
+	
+func onPoison():
+	pass
+
+func onBurn():
+	pass
+
+func onStun():
+	pass
+	
+func onSilence():
 	pass

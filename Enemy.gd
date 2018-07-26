@@ -4,8 +4,6 @@ signal on_hit
 signal on_stun
 signal on_death
 
-var health = 100
-
 func _ready():
 	connect("on_hit", self, "onHit")
 	connect("on_stun", self, "onStun")
