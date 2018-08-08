@@ -6,5 +6,5 @@ func _init().("Wind Slash", 1):
 
 func attack():
 	self.setOnCooldown()
-	$AnimationPlayer.play("Attack")
+	$AnimationPlayer.play("attack")
 	pass

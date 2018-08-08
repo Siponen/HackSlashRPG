@@ -17,4 +17,5 @@ func SetCurrentBehaviour(name):
 	pass
 
 func Update(delta):
+	
 	pass

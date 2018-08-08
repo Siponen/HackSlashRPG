@@ -51,6 +51,9 @@ func  _process(delta):
 	playerMovementVelocity.x = velocity.x
 	playerMovementVelocity.y = velocity.z
 	
+	#Debug stuff
+	testPausingAnimations()
+	
 	#Evasive input, can always be transitioned into from other attacks
 	if isSilenced == false:
 		if Input.is_action_just_pressed("dodge"):
@@ -72,6 +75,17 @@ func  _process(delta):
 			if $Abilities/heavy_attack.onCooldown == false:
 				$Abilities/heavy_attack.attack()
 	pass
+
+func testPausingAnimations():
+	if Input.is_action_just_pressed("play_anim"):
+		$AnimationPlayer.play("Attack")
+		print("Test attack anim")
+	elif Input.is_action_just_pressed("pause_anim"):
+		$AnimationPlayer.stop(false)
+		print("Pause anim")
+	elif Input.is_action_just_pressed("unpause_anim"):
+		$AnimationPlayer.play()
+		print("Unpause anim")
 
 func setPlayerOrentation():
 	var mousePosition = viewport.get_mouse_position()

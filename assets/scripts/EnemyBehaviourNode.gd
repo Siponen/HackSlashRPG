@@ -1,3 +1,9 @@
+var attackData = {} #Name, StartRange, EndRange, OnCooldown
+
+
+signal onEnter
+signal onExit
+
 signal onDisappear
 signal onFarAway
 

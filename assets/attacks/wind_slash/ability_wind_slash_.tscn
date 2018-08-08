@@ -195,6 +195,7 @@ subdivide_depth = 0
 
 [sub_resource type="Animation" id=10]
 
+resource_name = "attack"
 length = 1.2
 loop = false
 step = 0.1
@@ -283,7 +284,7 @@ tracks/6/keys = {
 "values": [ true, true, true ]
 }
 
-[node name="ability_wind_slash" type="Spatial"]
+[node name="ability_wind_slash" type="Spatial" index="0"]
 
 script = ExtResource( 1 )
 
@@ -439,7 +440,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Attack = SubResource( 10 )
+anims/attack = SubResource( 10 )
 blend_times = [  ]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="4"]

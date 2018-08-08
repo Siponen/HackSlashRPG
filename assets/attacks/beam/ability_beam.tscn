@@ -70,6 +70,7 @@ subdivide_depth = 0
 
 [sub_resource type="Animation" id=4]
 
+resource_name = "attack"
 length = 1.0
 loop = false
 step = 0.1
@@ -169,6 +170,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="BeamHurtBox" type="Area" parent="." index="0"]
 
+editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
@@ -223,7 +225,7 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Attack = SubResource( 4 )
+anims/attack = SubResource( 4 )
 blend_times = [  ]
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="." index="2"]
