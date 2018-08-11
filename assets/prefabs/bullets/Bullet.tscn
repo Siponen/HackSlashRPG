@@ -66,9 +66,8 @@ proximity_fade_enable = false
 distance_fade_enable = false
 _sections_unfolded = [ "Albedo" ]
 
-[node name="Bullet" type="Area"]
+[node name="Bullet" type="Area" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.81504, 0, 0 )
 input_ray_pickable = true
 input_capture_on_drag = false
 space_override = 0
@@ -90,6 +89,7 @@ reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]
 

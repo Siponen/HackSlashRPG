@@ -5,5 +5,4 @@ func _ready():
 	pass
 	
 func bodyEntered(body):
-	print("")
 	pass

@@ -1,15 +1,7 @@
-extends "res://Ability.gd"
+extends "res://assets/scripts/Ability.gd"
 
-func _init().("Laser Beam", 1):
+func _init().("Laser Beam", 1, 3):
 	pass
-
-func _ready():
-	pass
-
-func attack():
-	if onCooldown == false:
-		self.setOnCooldown()
-		$AnimationPlayer.play("attack")
 
 func onCharge():
 	$ChargeUp.play()

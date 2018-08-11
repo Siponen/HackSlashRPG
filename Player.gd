@@ -14,7 +14,11 @@ var playerDodgePosition = Vector3()
 #PlayerStates
 var isPlayerInFixedMovement = false
 var readyToAttack = true
-var playerNewPosition = Vector3()
+
+#Dodge state data
+var dodgeStartPosition = Vector3()
+var dodgeEndPosition = Vector3()
+
 var playerMovementTime = 0.4
 var playerCurrentMovementTime = 0
 
@@ -23,10 +27,9 @@ var playerMovementVelocity = Vector2()
 
 #Debuffs
 var isSilenced = false
-var isAttacking = false
 
 #Ability data
-var Ability = preload("res://Ability.gd")
+var Ability = preload("res://assets/scripts/Ability.gd")
 var abilities = []
 var ultimates = []
 
@@ -41,6 +44,9 @@ func _ready():
 	animTreePlayer = $AnimationTreePlayer
 	centerPosition = viewport.size*0.5
 	pass
+
+func startDash(): #Dash
+	self.set_collision_layer_bit(0)
 
 ############
 # Update
@@ -57,23 +63,27 @@ func  _process(delta):
 	#Evasive input, can always be transitioned into from other attacks
 	if isSilenced == false:
 		if Input.is_action_just_pressed("dodge"):
+			if $AttackGroup.isAttacking: #Cancel any ongoing attacks and move into dodge
+				$AttackGroup.currentAttack.cancel()
+			
 			var playerPosition = global_transform.origin
-			var playerForward = global_transform.basis.z # TODO basis.z is somehow right-direction vector, while it should be forward. Related to rotation of player's kinematic body
+			var playerForward = global_transform.basis.x # TODO basis.z is somehow right-direction vector, while it should be forward. Related to rotation offset player's kinematic body
 			playerForward.y = 0
-			playerNewPosition = playerPosition + playerForward * 30;
+			dodgeStartPosition = playerPosition
+			dodgeEndPosition = playerPosition + playerForward * 30
 			isPlayerInFixedMovement = true
 			playerCurrentMovementTime = 0
 			$AnimationPlayer.play("Dodge")
 	
 	#Ability input
-	if isSilenced == false and readyToAttack:
+	if isSilenced == false and $AttackGroup.isAttacking == false:
 		if Input.is_action_pressed("attack"):
-			if $Abilities/basic_attack.onCooldown == false:
-				$Abilities/basic_attack.attack()
+			if $AttackGroup/basic_attack.onCooldown == false:
+				$AttackGroup/basic_attack.attack()
 		
 		if Input.is_action_just_pressed("heavy_attack"):
-			if $Abilities/heavy_attack.onCooldown == false:
-				$Abilities/heavy_attack.attack()
+			if $AttackGroup/heavy_attack.onCooldown == false:
+				$AttackGroup/heavy_attack.attack()
 	pass
 
 func testPausingAnimations():
@@ -132,13 +142,13 @@ func _physics_process(delta):
 func physicsFixedMovePlayer(delta):
 	var playerPosition = global_transform.origin
 	var percentProgress = playerCurrentMovementTime / playerMovementTime
-	var nextPositionX = lerp(playerPosition.x, playerNewPosition.x, percentProgress)
-	var nextPositionZ = lerp(playerPosition.z, playerNewPosition.z, percentProgress)
+	var midPositionX = lerp(dodgeStartPosition.x, dodgeEndPosition.x, percentProgress)
+	var midPositionZ = lerp(dodgeStartPosition.z, dodgeEndPosition.z, percentProgress)
 	
 	var velocity = Vector3()
-	velocity.x = nextPositionX - playerPosition.x
-	velocity.z = nextPositionZ - playerPosition.z
-		
+	velocity.x = midPositionX - playerPosition.x
+	velocity.z = midPositionZ - playerPosition.z
+
 	if playerCurrentMovementTime > playerMovementTime:
 		isPlayerInFixedMovement = false
 		print("Done!", "End position: ", global_transform.origin)

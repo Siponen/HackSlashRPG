@@ -6,7 +6,7 @@ var lifeTime = 5
 var timer = 0
 var speed = 10
 
-func init(damage, dir):
+func init(damage, dir, speed = 10):
 	damageOnHit = damage
 	direction = dir
 

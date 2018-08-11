@@ -163,7 +163,7 @@ tracks/6/keys = {
 } ]
 }
 
-[node name="ability_beam" type="Spatial" index="0"]
+[node name="ability_beam" type="Spatial"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]

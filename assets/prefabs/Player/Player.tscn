@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Camera.gd" type="Script" id=2]
-[ext_resource path="res://assets/attacks/wind_slash/ability_wind_slash_.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/attacks/beam/ability_beam.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/prefabs/Player/AttackGroup.gd" type="Script" id=3]
+[ext_resource path="res://assets/attacks/wind_slash/ability_wind_slash_.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/attacks/beam/ability_beam.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -216,17 +217,18 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "Transform" ]
 
-[node name="Abilities" type="Spatial" parent="." index="3"]
+[node name="AttackGroup" type="Spatial" parent="." index="3"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46043, 0, 0 )
+script = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="basic_attack" parent="Abilities" index="0" instance=ExtResource( 3 )]
+[node name="basic_attack" parent="AttackGroup" index="0" instance=ExtResource( 4 )]
 
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="heavy_attack" parent="Abilities" index="1" instance=ExtResource( 4 )]
+[node name="heavy_attack" parent="AttackGroup" index="1" instance=ExtResource( 5 )]
 
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 
