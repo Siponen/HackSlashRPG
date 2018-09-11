@@ -43,10 +43,44 @@ func _ready():
 	animPlayer = $AnimationPlayer
 	animTreePlayer = $AnimationTreePlayer
 	centerPosition = viewport.size*0.5
+	
+	self.set_collision_layer_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
+	
+	self.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 	pass
 
 func startDash(): #Dash
-	self.set_collision_layer_bit(0)
+	print("Start dash")
+	self.set_collision_layer_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, false)
+	self.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_BODY_BIT, false)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, false)
+	
+	self.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, false)
+	self.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
+	self.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, false)
+
+func stopDash():
+	print("Stop dash")
+	self.set_collision_layer_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
+	self.set_collision_layer_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
+	
+	self.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
+	self.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 
 ############
 # Update
@@ -73,6 +107,7 @@ func  _process(delta):
 			dodgeEndPosition = playerPosition + playerForward * 30
 			isPlayerInFixedMovement = true
 			playerCurrentMovementTime = 0
+			startDash()
 			$AnimationPlayer.play("Dodge")
 	
 	#Ability input
@@ -151,6 +186,7 @@ func physicsFixedMovePlayer(delta):
 
 	if playerCurrentMovementTime > playerMovementTime:
 		isPlayerInFixedMovement = false
+		stopDash()
 		print("Done!", "End position: ", global_transform.origin)
 		
 	playerCurrentMovementTime += delta

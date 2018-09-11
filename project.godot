@@ -14,6 +14,10 @@ config/name="HackSlashRPG"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PhysicsLayers="*res://PhysicsLayers.gd"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "health_node" )

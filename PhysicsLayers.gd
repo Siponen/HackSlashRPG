@@ -1,0 +1,10 @@
+extends Node
+
+const UNPASSABLE_GEOMETRY_BIT = 0
+const PASSABLE_GEOMETRY_BIT = 1
+
+const PLAYER_BODY_BIT = 4
+const PLAYER_DAMAGE_BIT = 5
+
+const ENEMY_BODY_BIT = 7
+const ENEMY_DAMAGE_BIT = 8
