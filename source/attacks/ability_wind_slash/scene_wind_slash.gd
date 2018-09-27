@@ -1,0 +1,1 @@
+extends "res://source/scripts/SkillSceneScript.gd"
