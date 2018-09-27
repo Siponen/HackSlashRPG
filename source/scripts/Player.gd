@@ -35,6 +35,8 @@ func _ready():
 	
 	loadedSounds["jump"] = load("res://assets/sound/sfx_movement_jump17.wav")
 	loadedSounds["land"] = load("res://assets/sound/sfx_movement_jump17_landing.wav")
+	loadedSounds["dash"] = load("res://assets/sound/sfx_movement_jump14.wav")
+	loadedSounds["teleport"] = load("res://assets/sound/sfx_movement_portal1.wav")
 	
 	stateDirector = preload("res://source/scripts/StateDirector/StateDirector.gd").new(self)
 	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, stateDirector, $SkillSceneObjects)
@@ -47,9 +49,17 @@ func _ready():
 	
 	var dashState = preload("res://source/scripts/StateDirector/KinematicBodyDashState.gd").new()
 	stateDirector.addState("dash", dashState)
+	
+	var teleportState = preload("res://source/scripts/StateDirector/KinematicBodyTeleportState.gd").new()
+	stateDirector.addState("teleport", teleportState)
+	
+	var counterState = preload("res://source/scripts/StateDirector/KinematicBodyCounterState.gd").new()
+	stateDirector.addState("counter", counterState)
+	
+	var blockState = preload("res://source/scripts/StateDirector/KinematicBodyBlockState.gd").new()
+	stateDirector.addState("block", blockState)
+	
 	stateDirector.setActive("default")
-	
-	
 	
 	connect("on_hit", self, "onHit")
 	connect("on_play_sound", self, "onPlaySound")
@@ -84,7 +94,6 @@ func getTargetPositionByRayTrace():
 	var to = from + camera.project_ray_normal(mousePos) * rayLength
 	var space_state = get_world().direct_space_state
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
-	print("GetTargetPosition: ", result.position)
 	return result.position
 
 ##############

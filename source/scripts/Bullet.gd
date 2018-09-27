@@ -1,4 +1,4 @@
-extends Area
+extends KinematicBody
 
 var damageOnHit
 var direction = Vector3()
@@ -10,16 +10,10 @@ func init(damage, dir, speed = 10):
 	damageOnHit = damage
 	direction = dir
 
-func _ready():
-	connect("body_entered",self,"onHit")
-
 func _physics_process(delta):
-		global_transform.origin += direction*speed*delta
-		timer += delta
-		if timer > lifeTime: #Lifetime is over, reset or free (but reseting and reusing resources is better)
-			queue_free()
-
-func onHit(body):
-	if body.has_node("Health"):
+	var velocity = direction*speed*delta
+	move_and_collide(velocity)
+	
+	timer += delta
+	if timer > lifeTime: #Lifetime is over, reset or free (but reseting and reusing resources is better)
 		queue_free()
-		print("Bullet hit ", body.name, " for ", damageOnHit, " damage.")

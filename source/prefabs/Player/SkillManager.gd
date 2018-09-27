@@ -42,7 +42,9 @@ func _init(_parent, _director, _skillSceneNode):
 	insertSkillSceneNode("basic","ability_wind_slash")
 	
 	insertSkill("heavy", "barbaric_leap")
-	#insertSkill("dodge", "lightning_dash")
+	insertSkill("dodge", "lightning_dash")
+	insertSkill("slot_1", "teleport")
+	insertSkill("slot_2", "counter_attack")
 	pass
 
 func update(delta):
@@ -101,7 +103,7 @@ func useSkill(skillSlot):
 		if isCasting and skill.skillType == "dodge": #Allow to cancel with dodge skill
 			cancelSkill()
 			startCasting()
-		elif isAttacking == false:
+		elif isAttacking  == false:
 			startCasting()
 
 func cancelSkill():

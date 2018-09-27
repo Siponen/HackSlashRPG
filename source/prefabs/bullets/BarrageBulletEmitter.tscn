@@ -2,7 +2,7 @@
 
 [ext_resource path="res://source/prefabs/bullets/BarrageBulletEmitter.gd" type="Script" id=1]
 
-[node name="BarrageEmitter" type="Spatial" index="0"]
+[node name="BarrageEmitter" type="Spatial"]
 
 script = ExtResource( 1 )
 

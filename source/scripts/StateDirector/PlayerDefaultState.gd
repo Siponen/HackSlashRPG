@@ -26,6 +26,9 @@ func update(delta):
 	if not parent.isSilenced:
 		if Input.is_action_just_pressed("dodge"):
 			parent.emit_signal("activate_skill", "dodge")
+		
+		elif Input.is_action_just_pressed("cancel"):
+			parent.emit_signal("cancel_skill","cancel")
 			
 		elif Input.is_action_just_pressed("attack"): #Attack should be toggable
 			parent.emit_signal("activate_skill","basic")
@@ -36,8 +39,14 @@ func update(delta):
 		elif Input.is_action_just_pressed("counter_attack"):
 			parent.emit_signal("activate_skill","counter")
 			
-		elif Input.is_action_just_pressed("cancel"):
-			parent.emit_signal("cancel_skill","cancel")
+		elif Input.is_action_just_pressed("slot_1"):
+			parent.emit_signal("activate_skill","slot_1")
+			
+		elif Input.is_action_just_pressed("slot_2"):
+			parent.emit_signal("activate_skill", "slot_2")
+			
+		elif Input.is_action_just_pressed("slot_3"):
+			parent.emit_signal("activate_skill", "slot_3")
 	pass
 
 func setPlayerOrentation():

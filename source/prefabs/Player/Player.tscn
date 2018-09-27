@@ -178,7 +178,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -241,7 +241,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="4"]
 
 stream = null
-volume_db = 0.0
+volume_db = -15.0
 autoplay = false
 mix_target = 0
 bus = "Master"

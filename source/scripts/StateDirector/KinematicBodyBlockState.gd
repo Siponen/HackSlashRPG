@@ -8,16 +8,10 @@ var targetPosition
 var timeTaken
 
 func onEnter(onEnterData): #[startPosition,targetPosition, timeTaken]
-	if onEnterData == null:
-		startPosition = parent.global_transform.origin
-		targetPosition = parent.getTargetPositionByRayTrace()
-		timeTaken = parent.skillManager.currentSkill.attackTime
-	else:
-		startPosition = onEnterData[0]
-		targetPosition = onEnterData[1]
-		timeTaken = onEnterData[2]
-	
 	timer = 0
+	startPosition = onEnterData[0]
+	targetPosition = onEnterData[1]
+	timeTaken = onEnterData[2]
 	activateDashCollisions()
 	parent.emit_signal("on_play_sound","dash")
 	pass
@@ -44,6 +38,7 @@ func physics(delta):
 
 	timer += delta
 	parent.move_and_collide(velocity)
+	pass
 	
 func disableDashCollisions():
 	parent.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sfx_movement_portal1.wav-cdb96c0f2a2875a7ad4286e74b32f29d.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx_movement_portal1.wav"
+source_md5="63854be549828134542ef3bdb04c6b04"
+
+dest_files=[ "res://.import/sfx_movement_portal1.wav-cdb96c0f2a2875a7ad4286e74b32f29d.sample" ]
+dest_md5="8a1466eb639791acae2f5f53888337be"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

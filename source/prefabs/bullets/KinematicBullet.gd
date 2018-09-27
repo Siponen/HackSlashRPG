@@ -19,5 +19,5 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity)
 	if collision != null:
 		var collider = collision.collider
-		collider.emit("on_hit", onHitData)
+		collider.emit_signal("on_hit", onHitData)
 	pass
