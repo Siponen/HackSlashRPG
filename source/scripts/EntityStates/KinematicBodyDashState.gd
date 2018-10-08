@@ -1,25 +1,22 @@
 var parent
-var director
-
 var timer
 
 var startPosition
 var targetPosition
 var timeTaken
 
-func onEnter(onEnterData): #[startPosition,targetPosition, timeTaken]
+func onEnter(skillStateData): #[startPosition,targetPosition, timeTaken]
+	startPosition = parent.global_transform.origin
+	targetPosition = parent.getTargetPositionByRayTrace()
+	timeTaken = skillStateData.attackTime
 	timer = 0
-	startPosition = onEnterData[0]
-	targetPosition = onEnterData[1]
-	timeTaken = onEnterData[2]
-	activateTeleportCollisions()
-	parent.emit_signal("on_play_sound","teleport")
-	parent.hide()
+	
+	activateDashCollisions()
+	parent.emit_signal("on_play_sound","dash")
 	pass
 
 func onExit():
-	disableTeleportCollisions()
-	parent.show()
+	disableDashCollisions()
 	pass
 
 func update(delta):
@@ -36,12 +33,12 @@ func physics(delta):
 	velocity.z = midPositionZ - playerPosition.z
 
 	if timer > timeTaken:
-		director.emit_signal("next_state",null, null)
+		parent.emit_signal("player_state_finished")
 
 	timer += delta
 	parent.move_and_collide(velocity)
 	
-func disableTeleportCollisions():
+func disableDashCollisions():
 	parent.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
 	
 	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
@@ -50,10 +47,10 @@ func disableTeleportCollisions():
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
 	
-func activateTeleportCollisions():
+func activateDashCollisions():
 	parent.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
 	
-	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, false)
+	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
 	parent.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, false)
 	parent.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, false)

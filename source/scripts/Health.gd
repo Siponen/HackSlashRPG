@@ -1,10 +1,6 @@
-#Manages health and status ailments
-
-extends Node
-
-var animPlayer
-var isAlive
 var parent
+var isAlive
+
 var health
 var maxHealth
 
@@ -12,23 +8,23 @@ signal damage
 signal death
 signal heal
 
-func _ready():
+func _init(_parent, _hp):
+	parent = _parent
 	isAlive = true
+	health = _hp
+	maxHealth = _hp
+	
 	connect("damage",self,"onDamage")
 	connect("death",self,"onDeath")
-	parent = get_parent()
-	animPlayer = parent.get_node("AnimationPlayer")
-	health = 9999999999
 	pass
-	
+
 func onDamage(damage):
 	health -= damage
-	animPlayer.play("Hurt")
+	parent.emit_signal("on_damage")
 	print(parent.name," takes Damage ",damage, " has ", health, " hp")
 	
 	if(health <= 0):
-		emit_signal("death")
-		parent.emit_signal("on_death")
+		onDeath()
 	pass
 
 func onHeal(healPoints):
@@ -36,7 +32,7 @@ func onHeal(healPoints):
 	pass
 	
 func onDeath():
-	animPlayer.play("Death")
+	parent.emit_signal("on_death")
 	print(parent.name," dies")
 	pass
 	

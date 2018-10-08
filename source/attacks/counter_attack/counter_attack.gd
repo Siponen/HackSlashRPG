@@ -2,22 +2,62 @@ extends "res://source/scripts/Skill.gd"
 
 func _init():
 	id = "counter_attack"
-	displayName = "Counter Attack"
-	inputType = "none"
-	skillType = "counter"
+	displayName = "Counter attack"
+	skillType = "heavy"
+	attackRange = 400
 	assignedSkillSlot = null #The skill slot the skill is bound to
-	nextState = "counter" #The player state change, after the final state change, it switches back to default state
-
-	#Animation data
+	
+	#Cast data
 	castName = "cast" #The player's casting animation
-	castTime = 0
-	
-	initialDamage = 20 #This is the initial damage from a skill
-	damageValues = 100
-	
-	attackTime = 3
+	castTime = 0.2
+
 	#Cooldown values
 	onCooldown = false
 	cooldownTimer = 0
 	currentCooldownTime = 0
 	defaultCooldownTime = 3 #The cooldown used after using a skill
+		
+	skillData = [
+		{
+			"stateId": "counter",
+			"entityAnimation": "counter",
+			"spellSceneEffect": null,
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "jump",
+			"onExitEffectSound": "land ",
+			
+			"attackTime": 2.5,
+			"damage": 100
+		},
+		{
+				"stateId": "inputJump",
+				"entityAnimation": "jump",
+				"spellSceneEffect": null,
+				
+				"onEnterCharacterSound": null,
+				"onExitCharacterSound": null,
+				
+				"onEnterEffectSound": "jump",
+				"onExitEffectSound": "land ",
+				
+				"attackTime": 2.5,
+				"damage": 100
+		},
+		{ #Fail skill state
+			"stateId": "teleport",
+			"entityAnimation": null,
+			"spellSceneEffect": null,
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "teleport",
+			"onExitEffectSound": "land ",
+			
+			"attackTime": 0.5,
+			"damage": 100
+		}, 
+	]

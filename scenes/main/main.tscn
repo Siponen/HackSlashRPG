@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/main/main.gd" type="Script" id=1]
 [ext_resource path="res://source/prefabs/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/prefabs/bullets/BarrageBulletEmitter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/World/World.gd" type="Script" id=3]
 [ext_resource path="res://source/enemies/Boss.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PlaneShape" id=1]
@@ -77,7 +77,7 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="root" type="Node"]
+[node name="root" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
@@ -89,9 +89,13 @@ collision_mask = 19
 
 [node name="World" type="Node" parent="." index="1"]
 
-[node name="BarrageEmitter" parent="World" index="0" instance=ExtResource( 3 )]
+script = ExtResource( 3 )
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.4048 )
+[node name="DemoBoss" parent="World" index="0" instance=ExtResource( 4 )]
+
+collision_layer = 128
+collision_mask = 179
+_sections_unfolded = [ "Collision" ]
 
 [node name="Floor" type="StaticBody" parent="World" index="1"]
 
@@ -163,11 +167,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry" ]
 
-[node name="DemoBoss" parent="World" index="3" instance=ExtResource( 4 )]
-
-collision_layer = 128
-collision_mask = 179
-_sections_unfolded = [ "Collision" ]
+[node name="Items" type="Node" parent="World" index="3"]
 
 [node name="OtherPlayers" type="Node" parent="." index="2"]
 

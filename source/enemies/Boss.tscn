@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/scripts/Boss.gd" type="Script" id=1]
-[ext_resource path="res://source/scripts/Health.gd" type="Script" id=2]
-[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=3]
-[ext_resource path="res://source/scripts/ThreatTrigger.gd" type="Script" id=4]
-[ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=5]
+[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/scripts/ThreatTrigger.gd" type="Script" id=3]
+[ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=4]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -85,20 +84,16 @@ axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
 
-[node name="Health" type="Node" parent="." index="0"]
+[node name="Abilities" type="Node" parent="." index="0"]
 
-script = ExtResource( 2 )
+[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 2 )]
 
-[node name="Abilities" type="Node" parent="." index="1"]
-
-[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 3 )]
-
-[node name="CollisionShape" type="CollisionShape" parent="." index="2"]
+[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
 
 shape = SubResource( 1 )
 disabled = false
 
-[node name="ThreatTrigger" type="Area" parent="." index="3"]
+[node name="ThreatTrigger" type="Area" parent="." index="2"]
 
 input_ray_pickable = false
 input_capture_on_drag = false
@@ -120,7 +115,7 @@ reverb_bus_enable = false
 reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="ThreatTrigger" index="0"]
@@ -130,7 +125,7 @@ shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="4"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
 
 layers = 1
 material_override = null
@@ -146,7 +141,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -157,9 +152,9 @@ anims/Death = SubResource( 4 )
 anims/Hurt = SubResource( 5 )
 blend_times = [  ]
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="." index="6"]
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." index="5"]
 
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 volume_db = 0.0
 autoplay = false
 max_distance = 2000.0

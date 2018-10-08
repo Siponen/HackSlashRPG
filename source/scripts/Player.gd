@@ -11,6 +11,12 @@ var centerPosition
 #Common Player AudioStreams
 var loadedSounds = {}
 
+#Player states
+var loadedPlayerStates = {}
+var currentPlayerState
+
+var skillManager
+
 #Debuffs
 var isSilenced = false
 
@@ -18,13 +24,16 @@ var isSilenced = false
 var animPlayer
 var animTreePlayer
 
-var stateDirector
-var skillManager
-
 signal on_hit
 signal on_play_sound
+
 signal activate_skill
 signal cancel_skill
+
+signal set_player_state
+signal set_default_state
+signal player_state_finished
+signal player_conditional_state_finished
 
 func _ready():
 	viewport = get_viewport()
@@ -32,45 +41,62 @@ func _ready():
 	camera = $Camera
 	animPlayer = $AnimationPlayer
 	animTreePlayer = $AnimationTreePlayer
-	
+
+	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, $SkillSceneObjects)
+
+	loadSounds()
+	initStates()
+	connectSignals()
+	initPlayerCollision()
+	pass
+
+func loadSounds():
 	loadedSounds["jump"] = load("res://assets/sound/sfx_movement_jump17.wav")
 	loadedSounds["land"] = load("res://assets/sound/sfx_movement_jump17_landing.wav")
 	loadedSounds["dash"] = load("res://assets/sound/sfx_movement_jump14.wav")
 	loadedSounds["teleport"] = load("res://assets/sound/sfx_movement_portal1.wav")
+	pass
+
+func initStates():
+	var defaultState = preload("res://source/scripts/EntityStates/PlayerDefaultState.gd").new(camera, viewport)
+	addPlayerState("default", defaultState)
 	
-	stateDirector = preload("res://source/scripts/StateDirector/StateDirector.gd").new(self)
-	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, stateDirector, $SkillSceneObjects)
+	var jumpState = preload("res://source/scripts/EntityStates/KinematicBodyJumpState.gd").new()
+	addPlayerState("jump", jumpState)
 	
-	var defaultState = preload("res://source/scripts/StateDirector/PlayerDefaultState.gd").new(camera, viewport)
-	stateDirector.addState("default", defaultState)
+	var dashState = preload("res://source/scripts/EntityStates/KinematicBodyDashState.gd").new()
+	addPlayerState("dash", dashState)
 	
-	var jumpState = preload("res://source/scripts/StateDirector/KinematicBodyJumpState.gd").new()
-	stateDirector.addState("jump", jumpState)
+	var teleportState = preload("res://source/scripts/EntityStates/KinematicBodyTeleportState.gd").new()
+	addPlayerState("teleport", teleportState)
 	
-	var dashState = preload("res://source/scripts/StateDirector/KinematicBodyDashState.gd").new()
-	stateDirector.addState("dash", dashState)
+	var counterState = preload("res://source/scripts/EntityStates/KinematicBodyCounterState.gd").new()
+	addPlayerState("counter", counterState)
 	
-	var teleportState = preload("res://source/scripts/StateDirector/KinematicBodyTeleportState.gd").new()
-	stateDirector.addState("teleport", teleportState)
+	var blockState = preload("res://source/scripts/EntityStates/KinematicBodyBlockState.gd").new()
+	addPlayerState("block", blockState)
 	
-	var counterState = preload("res://source/scripts/StateDirector/KinematicBodyCounterState.gd").new()
-	stateDirector.addState("counter", counterState)
+	var inputJumpState = preload("res://source/scripts/EntityStates/DelayedInputJumpState.gd").new()
+	addPlayerState("inputJump", inputJumpState)
 	
-	var blockState = preload("res://source/scripts/StateDirector/KinematicBodyBlockState.gd").new()
-	stateDirector.addState("block", blockState)
-	
-	stateDirector.setActive("default")
-	
+	currentPlayerState = loadedPlayerStates["default"]
+	pass
+
+func connectSignals():
 	connect("on_hit", self, "onHit")
 	connect("on_play_sound", self, "onPlaySound")
 	connect("activate_skill", self, "activateSkill")
 	connect("cancel_skill", self, "cancelSkill")
-	
-	initPlayerCollision()
+	connect("set_player_state", self, "setPlayerState")
+	connect("set_default_state", self, "setDefaultState")
+	connect("player_state_finished", self, "playerStateFinished")
+	connect("player_conditional_state_finished", self, "playerConditionalStateFinished")
 	pass
 
-func activateSkill(skillSlot):
-	skillManager.useSkill(skillSlot)
+
+func addPlayerState(stateKey, state):
+	state.parent = self
+	loadedPlayerStates[stateKey] = state
 	pass
 
 func initPlayerCollision():
@@ -82,10 +108,6 @@ func initPlayerCollision():
 	self.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 	self.set_collision_mask_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
 
-func startCasting(animName):
-	animPlayer.play(animName)
-	pass
-
 func getTargetPositionByRayTrace():
 	var rayLength = 1000
 	var mousePos = viewport.get_mouse_position()
@@ -96,25 +118,18 @@ func getTargetPositionByRayTrace():
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
 	return result.position
 
-##############
 # Update
-##############
 func  _process(delta):
+	currentPlayerState.update(delta)
 	skillManager.update(delta)
-	stateDirector.update(delta)
 	pass
 
-##############
 # Physics
-##############
 func _physics_process(delta):
-	stateDirector.physics(delta)
+	currentPlayerState.physics(delta)
 	pass
 
-#############
 # Signals
-#############
-# Hitdata: Damage, DamageType, OnHitEffect
 func onHit(onHitData):
 	var health = $Health
 	health.emit_signal("damage", onHitData.damage)
@@ -125,6 +140,30 @@ func onPlaySound(soundName):
 	$AudioStreamPlayer.play()
 	pass
 
+func activateSkill(skillSlot):
+	skillManager.startAttack(skillSlot)
+	pass
+
 func cancelSkill(skillSlot):
 	skillManager.cancelSkill()
+	pass
+
+func setDefaultState():
+	currentPlayerState.onExit()
+	currentPlayerState = loadedPlayerStates["default"]
+	currentPlayerState.onEnter()
+	pass
+
+func setPlayerState(skillStateData):
+	currentPlayerState.onExit()
+	currentPlayerState = loadedPlayerStates[skillStateData.stateId]
+	currentPlayerState.onEnter(skillStateData)
+	pass
+
+func playerStateFinished():
+	skillManager.emit_signal("next_skill_state")
+	pass
+	
+func playerConditionalStateFinished(isSuccess):
+	skillManager.emit_signal("next_conditional_skill_state", isSuccess)
 	pass

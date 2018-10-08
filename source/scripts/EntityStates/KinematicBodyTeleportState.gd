@@ -1,5 +1,4 @@
 var parent
-var director
 
 var timer
 
@@ -7,23 +6,19 @@ var startPosition
 var targetPosition
 var timeTaken
 
-func onEnter(onEnterData): #[startPosition,targetPosition, timeTaken]
-	if onEnterData == null:
-		startPosition = parent.global_transform.origin
-		targetPosition = parent.getTargetPositionByRayTrace()
-		timeTaken = parent.skillManager.currentSkill.attackTime
-	else:
-		startPosition = onEnterData[0]
-		targetPosition = onEnterData[1]
-		timeTaken = onEnterData[2]
-	
+func onEnter(skillStateData): #[startPosition,targetPosition, timeTaken]
 	timer = 0
-	activateDashCollisions()
-	parent.emit_signal("on_play_sound","dash")
+	startPosition = parent.global_transform.origin
+	targetPosition = parent.getTargetPositionByRayTrace()
+	timeTaken = skillStateData.attackTime
+	activateTeleportCollisions()
+	parent.emit_signal("on_play_sound","teleport")
+	parent.hide()
 	pass
 
 func onExit():
-	disableDashCollisions()
+	disableTeleportCollisions()
+	parent.show()
 	pass
 
 func update(delta):
@@ -40,12 +35,12 @@ func physics(delta):
 	velocity.z = midPositionZ - playerPosition.z
 
 	if timer > timeTaken:
-		director.emit_signal("next_state",null, null)
+		parent.emit_signal("player_state_finished")
 
 	timer += delta
 	parent.move_and_collide(velocity)
 	
-func disableDashCollisions():
+func disableTeleportCollisions():
 	parent.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
 	
 	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
@@ -54,10 +49,10 @@ func disableDashCollisions():
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
 	
-func activateDashCollisions():
+func activateTeleportCollisions():
 	parent.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
 	
-	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
+	parent.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, false)
 	parent.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, false)
 	parent.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, false)
 	parent.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, false)

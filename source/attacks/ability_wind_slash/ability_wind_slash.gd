@@ -2,20 +2,34 @@ extends "res://source/scripts/Skill.gd"
 
 func _init():
 	id = "ability_wind_slash"
-	displayName = "Wind slash"
-	skillType = "attack"
+	displayName = "Wind Slash"
+	skillType = "basic"
+	attackRange = 400
 	assignedSkillSlot = null #The skill slot the skill is bound to
-
-	#Animation data
+	
+	#Cast data
 	castName = "cast" #The player's casting animation
-	castTime = 0.322
-	
-	initialDamage = 20 #This is the initial damage from a skill
-	damageValues = [10,20,30] #For multi-damage attacks with varying damage values.
-	
-	attackTime = 1
+	castTime = 0.3
+
 	#Cooldown values
 	onCooldown = false
 	cooldownTimer = 0
 	currentCooldownTime = 0
-	defaultCooldownTime = 3 #The cooldown used after using a skill
+	defaultCooldownTime = 1 #The cooldown used after using a skill
+
+	skillData = [
+		{
+			"stateId": "default",
+			"entityAnimation": "attack",
+			"spellSceneEffect": "attack_effect",
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "hit_1",
+			"onExitEffectSound": null,
+			
+			"attackTime": 1.5,
+			"damage": 100
+		},
+	]

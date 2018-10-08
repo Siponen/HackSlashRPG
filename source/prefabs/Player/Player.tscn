@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://source/scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://source/scripts/Health.gd" type="Script" id=2]
-[ext_resource path="res://source/scripts/Camera.gd" type="Script" id=3]
+[ext_resource path="res://source/scripts/Camera.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -194,11 +193,7 @@ collision/safe_margin = 0.001
 script = ExtResource( 1 )
 _sections_unfolded = [ "Axis Lock", "Collision", "Transform", "collision" ]
 
-[node name="Health" type="Node" parent="." index="0"]
-
-script = ExtResource( 2 )
-
-[node name="Camera" type="Camera" parent="." index="1"]
+[node name="Camera" type="Camera" parent="." index="0"]
 
 transform = Transform( -4.37114e-08, -0.707107, 0.707107, 0, 0.707107, 0.707107, -1, 3.09086e-08, -3.09086e-08, 4.07701, 7.3101, 0 )
 keep_aspect = 1
@@ -213,16 +208,16 @@ fov = 90.0
 size = 1.0
 near = 0.05
 far = 100.0
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="2"]
+[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
 
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="TempMesh" type="MeshInstance" parent="." index="3"]
+[node name="TempMesh" type="MeshInstance" parent="." index="2"]
 
 layers = 1
 material_override = SubResource( 2 )
@@ -238,7 +233,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Geometry", "Transform" ]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="4"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
 
 stream = null
 volume_db = -15.0
@@ -246,7 +241,7 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -262,7 +257,7 @@ anims/cast = SubResource( 9 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="6"]
+[node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="5"]
 
 playback_process_mode = 1
 master_player = NodePath("../AnimationPlayer")
@@ -309,6 +304,6 @@ data = {
 } ]
 }
 
-[node name="SkillSceneObjects" type="Spatial" parent="." index="7"]
+[node name="SkillSceneObjects" type="Spatial" parent="." index="6"]
 
 

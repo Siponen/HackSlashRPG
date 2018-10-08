@@ -1,5 +1,4 @@
 var parent
-var director
 
 #OnEnter data
 var startPosition
@@ -11,10 +10,10 @@ var timer = 0
 var isActive = true
 var yOffset = 20
 
-func onEnter(onEnterData):
-	startPosition = onEnterData[0]
-	endPosition = onEnterData[1]
-	timeLimit = onEnterData[2]
+func onEnter(skillStateData):
+	startPosition = parent.global_transform.origin
+	endPosition = parent.getTargetPositionByRayTrace()
+	timeLimit = skillStateData.attackTime
 	
 	if startPosition.y > endPosition.y:
 		peakHeight = startPosition.y + yOffset
@@ -39,7 +38,7 @@ func update(delta):
 		timer += delta
 		if timer >= timeLimit:
 			isActive = false
-			director.emit_signal("next_state", null, null)
+			parent.emit_signal("player_state_finished")
 	pass
 
 func physics(delta):

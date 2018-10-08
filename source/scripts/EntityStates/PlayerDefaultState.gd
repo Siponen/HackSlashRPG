@@ -1,5 +1,4 @@
 var parent
-var director
 var assignedDevice # M&K, [Gamepads] 1,2,3,4,5,6...20
 
 var camera

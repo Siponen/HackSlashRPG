@@ -5,4 +5,5 @@ func _ready():
 	pass
 	
 func bodyEntered(body):
+	print("Boss ", get_parent().bossName," is triggered by ", body.name)
 	pass

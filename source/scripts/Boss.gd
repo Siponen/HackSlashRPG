@@ -16,37 +16,63 @@ extends KinematicBody
 var threatList = [] # Player/Companions/Minions, ThreatValue
 var currentTarget
 
+#Action Queue
+#StayAtRange, Chase(Point,Walk/Run), Attack(Body,Distance,AttackName), RunAwayFrom(Body), Defend(Body)
+var currentState = {}
+var loadedStates = {}
+
+#Health
+var health = preload("res://source/scripts/Health.gd").new(self, 500)
+
 #Threat signals
 signal threat_deals_damage
 signal threat_is_healing
 
-#Action Queue
-#StayAtRange, Chase(Point,Walk/Run), Attack(Body,AttackName), RunAwayFrom(Body), Defend(Body)
-var nextAction
-var currentAction
-
 signal on_hit
 signal on_stun
 signal on_death
+signal drop_items
 
 signal follow_player
 
+#State signals
+signal next_state
+
+
+var bossName
 var cooldown = 1
 var timer = 0
+
+var walkSpeed = 2
 
 #Abilities
 onready var doomBarrage = $Abilities/doom_barrage
 
 func _ready():
-	#connect("is_damaged",self,"isDamaged")
+	bossName = "Von Hundefutter"
 	connect("on_hit", self, "onHit")
 	connect("on_stun", self, "onStun")
+	connect("next_state", self, "onNextState")
+	
+	var idleState = preload("res://source/enemies/IdleState.gd").new(self)
+	addBossState("idle", idleState)
+	
+	var chaseState = preload("res://source/enemies/ChaseState.gd").new(self)
+	addBossState("chase", chaseState)
+	
+	currentState = loadedStates["idle"]
 	pass
 
 func _process(delta):
-	if not doomBarrage.onCooldown:
-		var position = currentTarget.global_transform.origin
-		doomBarrage.attack(position)
+	currentState.update(delta)
+	pass
+
+func _physics_process(delta):
+	currentState.physics(delta)
+	pass
+
+func addBossState(stateId,state):
+	loadedStates[stateId] = state
 	pass
 
 func onHit():
@@ -59,4 +85,8 @@ func onStun():
 
 func onDeath():
 	$DeathSound.play()
+	pass
+
+func onNextState(stateId):
+	currentState = loadedStates[stateId]
 	pass
