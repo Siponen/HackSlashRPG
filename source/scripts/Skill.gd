@@ -8,6 +8,11 @@ var assignedSkillSlot #The skill slot the skill is bound to
 var castName #The player's casting animation
 var castTime 
 
+#Basic attack
+var onBasicAttack
+var resetTime
+var resetTimeLimit
+
 #Cooldown values
 var onCooldown
 var cooldownTimer

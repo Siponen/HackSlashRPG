@@ -9,7 +9,12 @@ func _init():
 	
 	#Cast data
 	castName = "cast" #The player's casting animation
-	castTime = 0.3
+	castTime = 0.2
+
+	#Basic attack data
+	onBasicAttack = false
+	resetTime = 0
+	resetTimeLimit = 0.5
 
 	#Cooldown values
 	onCooldown = false
@@ -19,8 +24,8 @@ func _init():
 
 	skillData = [
 		{
-			"stateId": "default",
-			"entityAnimation": "attack",
+			"entityAnimation": "attack1",
+			"onExitEntityAnimation": "fallback",
 			"spellSceneEffect": "attack_effect",
 			
 			"onEnterCharacterSound": null,
@@ -29,7 +34,35 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
-			"attackTime": 1.5,
-			"damage": 100
+			"attackTime": 0.1,
+			"damage": 30,
+		},
+		{
+			"entityAnimation": "attack2",
+			"onExitEntityAnimation": "fallback",
+			"spellSceneEffect": "attack_effect",
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "hit_1",
+			"onExitEffectSound": null,
+			
+			"attackTime": 0.1,
+			"damage": 30
+		},
+		{
+			"entityAnimation": "attack3",
+			"onExitEntityAnimation": "fallback",
+			"spellSceneEffect": "attack_effect",
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "hit_1",
+			"onExitEffectSound": null,
+			
+			"attackTime": 0.1,
+			"damage": 30
 		},
 	]

@@ -67,24 +67,6 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="Animation" id=4]
-
-length = 2.0
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("TempMesh:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 1, 1, 1 ), Vector3( 10, 1, 10 ), Vector3( 1, 1, 1 ) ]
-}
-
 [sub_resource type="Animation" id=5]
 
 resource_name = "Dodge"
@@ -158,6 +140,25 @@ tracks/0/keys = {
 "values": [ Vector3( 0.95, 0.95, 0.95 ) ]
 }
 
+[sub_resource type="Animation" id=4]
+
+resource_name = "attack1"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("TempMesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 10, 1, 10 ), Vector3( 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=9]
 
 resource_name = "cast"
@@ -177,7 +178,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -248,14 +249,28 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Attack = SubResource( 4 )
 anims/Dodge = SubResource( 5 )
 anims/HeavyAttack = SubResource( 6 )
 anims/Idle = SubResource( 7 )
 anims/Ultimate = SubResource( 8 )
+anims/attack1 = SubResource( 4 )
 anims/cast = SubResource( 9 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
+
+[node name="HurtBox" type="KinematicBody" parent="AnimationPlayer" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+collision/safe_margin = 0.001
 
 [node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="5"]
 

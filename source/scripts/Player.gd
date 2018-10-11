@@ -35,6 +35,8 @@ signal set_default_state
 signal player_state_finished
 signal player_conditional_state_finished
 
+signal player_basic_attack
+
 func _ready():
 	viewport = get_viewport()
 	centerPosition = viewport.size*0.5
@@ -91,8 +93,9 @@ func connectSignals():
 	connect("set_default_state", self, "setDefaultState")
 	connect("player_state_finished", self, "playerStateFinished")
 	connect("player_conditional_state_finished", self, "playerConditionalStateFinished")
+	connect("player_basic_attack", self, "playerBasicAttack")
+	connect("player_reset_attack", self, "playerResetBasicAttack")
 	pass
-
 
 func addPlayerState(stateKey, state):
 	state.parent = self
@@ -129,17 +132,6 @@ func _physics_process(delta):
 	currentPlayerState.physics(delta)
 	pass
 
-# Signals
-func onHit(onHitData):
-	var health = $Health
-	health.emit_signal("damage", onHitData.damage)
-	pass
-	
-func onPlaySound(soundName):
-	$AudioStreamPlayer.stream = loadedSounds[soundName]
-	$AudioStreamPlayer.play()
-	pass
-
 func activateSkill(skillSlot):
 	skillManager.startAttack(skillSlot)
 	pass
@@ -160,10 +152,29 @@ func setPlayerState(skillStateData):
 	currentPlayerState.onEnter(skillStateData)
 	pass
 
+# Signals
+func onHit(onHitData):
+	var health = $Health
+	health.emit_signal("damage", onHitData.damage)
+	pass
+	
+func onPlaySound(soundName):
+	$AudioStreamPlayer.stream = loadedSounds[soundName]
+	$AudioStreamPlayer.play()
+	pass
+
 func playerStateFinished():
 	skillManager.emit_signal("next_skill_state")
 	pass
 	
 func playerConditionalStateFinished(isSuccess):
 	skillManager.emit_signal("next_conditional_skill_state", isSuccess)
+	pass
+
+func playerBasicAttack(basicSkillStateData):
+	animPlayer.play(basicSkillStateData.entityAnimation)
+	pass
+
+func playerResetBasicAttack():
+	animPlayer.play("basic_reset")
 	pass

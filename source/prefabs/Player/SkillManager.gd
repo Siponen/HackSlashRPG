@@ -7,8 +7,16 @@ var skills = {}
 
 #Current skill data
 var currentSkill
+var currentStateIndex = 0
 var currentSkillState
 var currentSkillStateArray = []
+
+#Current Basic skill data
+var currentBasicSkill
+var currentBasicSkillState
+var currentBasicSkillStateArray = []
+var resetTimer = 0
+var resetTimeValue = 0
 
 #Skill Scene Nodes
 var skillNodes = {}
@@ -56,6 +64,13 @@ func insertSkillSceneNode(skillSlot,skillName):
 
 func update(delta):
 	updateSkillCooldowns(delta)
+	
+	if currentBasicSkill != null:
+		currentBasicSkill.resetTime += delta
+		if currentBasicSkill.resetTime > currentBasicSkill.resetTimeLimit:
+			currentBasicSkill = null
+			currentBasicSkillState = null
+			currentBasicSkillStateArray = null
 	pass
 
 func updateSkillCooldowns(delta):
@@ -67,24 +82,30 @@ func updateSkillCooldowns(delta):
 				elem.onCooldown = false
 				elem.cooldownTimer = 0
 
-func executeSkill(_startPosition,_targetPoint):
-	var targetData
-	match currentSkill.inputType:
-		"point":
-			targetData = _targetPoint
-		"direction":
-			targetData = _targetPoint - _startPosition
-
-	director.emit_signal("next_state", currentSkill.skillStates)
-	pass
-
 func startAttack(skillSlot):
-	currentSkill = skills[skillSlot]
-	currentSkillStateArray = currentSkill.skillData.duplicate() #Copy the skillData array so that we aren't mutating the skeleton skillData in skills
-	currentSkillState = currentSkillStateArray.pop_front()
-	parent.emit_signal("set_player_state", currentSkillState)
+	var skill = skills[skillSlot]
+	if skill.skillType == "basic": #An attack without affecting the player state
+		if currentBasicSkill == null or currentBasicSkillStateArray.empty() or skill.id != currentBasicSkill.id:
+			currentBasicSkill = skill
+			currentBasicSkill.onBasicAttack = true
+			currentBasicSkill.resetTime = 0
+			currentBasicSkillStateArray = currentBasicSkill.skillData.duplicate()
+			currentBasicSkillState = currentBasicSkillStateArray.pop_front()
+			print(currentBasicSkillState)
+			parent.emit_signal("player_basic_attack", currentBasicSkillState)
+		else:
+			currentBasicSkill.resetTime = 0
+			currentBasicSkillState = currentBasicSkillStateArray.pop_front()
+			
+			print(currentBasicSkillState)
+			parent.emit_signal("player_basic_attack", currentBasicSkillState)
+
+	else: #An attack with its own player states
+		currentSkillStateArray = currentSkill.skillData.duplicate() #Copy the skillData array so that we aren't mutating the skeleton skillData in skills
+		currentSkillState = currentSkillStateArray.pop_front()
+		parent.emit_signal("set_player_state", currentSkillState)
 	pass
-	
+
 func nextSkillState():
 	if currentSkillStateArray.empty():
 		finishSkill()
