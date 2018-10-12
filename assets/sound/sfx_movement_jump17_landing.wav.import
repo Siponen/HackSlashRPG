@@ -7,10 +7,7 @@ path="res://.import/sfx_movement_jump17_landing.wav-55f0dbeff625c4eb8e5e4c184172
 [deps]
 
 source_file="res://assets/sound/sfx_movement_jump17_landing.wav"
-source_md5="c0c5248c5757039f98156ac85697b4f0"
-
 dest_files=[ "res://.import/sfx_movement_jump17_landing.wav-55f0dbeff625c4eb8e5e4c1841722f40.sample" ]
-dest_md5="6370e93eb0e247d24d4b1490134eecb3"
 
 [params]
 

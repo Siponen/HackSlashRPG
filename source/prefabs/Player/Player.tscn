@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://source/scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://source/scripts/Camera.gd" type="Script" id=2]
@@ -62,10 +62,30 @@ _sections_unfolded = [ "Albedo" ]
 
 [sub_resource type="CubeMesh" id=3]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector3( 2, 2, 2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "Attack"
+length = 2.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("TempMesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 10, 1, 10 ), Vector3( 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 
@@ -140,28 +160,106 @@ tracks/0/keys = {
 "values": [ Vector3( 0.95, 0.95, 0.95 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=9]
 
-resource_name = "attack1"
 length = 2.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("TempMesh:scale")
+tracks/0/path = NodePath("PlayerHurtboxes/RightSwingHurtBox:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 1, 1, 1 ), Vector3( 10, 1, 10 ), Vector3( 1, 1, 1 ) ]
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hit1" ],
+"method": "onPlaySound"
+} ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
-resource_name = "cast"
+resource_name = "attack2"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerHurtboxes/LeftSwingHurtBox2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hit2" ],
+"method": "onPlaySound"
+} ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource_name = "attack3"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerHurtboxes/ThirdSwingHurtBox3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hit3" ],
+"method": "onPlaySound"
+} ]
+}
+
+[sub_resource type="Animation" id=12]
+
 length = 0.35
 loop = false
 step = 0.05
@@ -178,6 +276,18 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
+[sub_resource type="BoxShape" id=13]
+
+extents = Vector3( 1, 1, 1 )
+
+[sub_resource type="CubeMesh" id=14]
+
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+size = Vector3( 2, 2, 2 )
+subdivide_width = 0
+subdivide_height = 0
+subdivide_depth = 0
+
 [node name="Player" type="KinematicBody" index="0"]
 
 input_ray_pickable = true
@@ -192,7 +302,7 @@ axis_lock_angular_y = true
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
-_sections_unfolded = [ "Axis Lock", "Collision", "Transform", "collision" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Camera" type="Camera" parent="." index="0"]
 
@@ -238,6 +348,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 stream = null
 volume_db = -15.0
+pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Master"
@@ -249,21 +360,37 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
+anims/Attack = SubResource( 4 )
 anims/Dodge = SubResource( 5 )
 anims/HeavyAttack = SubResource( 6 )
 anims/Idle = SubResource( 7 )
 anims/Ultimate = SubResource( 8 )
-anims/attack1 = SubResource( 4 )
-anims/cast = SubResource( 9 )
+anims/attack1 = SubResource( 9 )
+anims/attack2 = SubResource( 10 )
+anims/attack3 = SubResource( 11 )
+anims/cast = SubResource( 12 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
-[node name="HurtBox" type="KinematicBody" parent="AnimationPlayer" index="0"]
+[node name="PlayerHurtboxes" type="RemoteTransform" parent="." index="5"]
 
+transform = Transform( 1, 0.000277349, -0.000573668, -0.000277772, 1, -0.000756259, 0.000573464, 0.000756415, 1, 0, 0, 0 )
+remote_path = NodePath("..")
+use_global_coordinates = true
+update_position = true
+update_rotation = true
+update_scale = true
+_sections_unfolded = [ "Update" ]
+
+[node name="LeftSwingHurtBox2" type="KinematicBody" parent="PlayerHurtboxes" index="0"]
+
+editor/display_folded = true
+transform = Transform( 0.378531, 0, 0.653726, 0, 1, 0, -0.327006, 0, 0.756731, 2.07301, 0, 0 )
+visible = false
 input_ray_pickable = true
 input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 32
+collision_mask = 32
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -271,8 +398,105 @@ axis_lock_angular_x = false
 axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
+_sections_unfolded = [ "Collision", "Visibility" ]
 
-[node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="5"]
+[node name="CollisionShape" type="CollisionShape" parent="PlayerHurtboxes/LeftSwingHurtBox2" index="0"]
+
+shape = SubResource( 13 )
+disabled = false
+
+[node name="MeshInstance" type="MeshInstance" parent="PlayerHurtboxes/LeftSwingHurtBox2" index="1"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 14 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="RightSwingHurtBox" type="KinematicBody" parent="PlayerHurtboxes" index="1"]
+
+editor/display_folded = true
+transform = Transform( 0.445975, 0, -0.452899, 0, 1, 0, 0.226549, 0, 0.891562, 2.07301, 0, 0 )
+visible = false
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 32
+collision_mask = 32
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+collision/safe_margin = 0.001
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerHurtboxes/RightSwingHurtBox" index="0"]
+
+shape = SubResource( 13 )
+disabled = false
+
+[node name="MeshInstance" type="MeshInstance" parent="PlayerHurtboxes/RightSwingHurtBox" index="1"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 14 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="ThirdSwingHurtBox3" type="KinematicBody" parent="PlayerHurtboxes" index="2"]
+
+editor/display_folded = true
+transform = Transform( -0.500136, 0, 0.0181301, 0, 1, 0, -0.00906904, 0, -0.999836, 2.07301, 0, 0 )
+visible = false
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 32
+collision_mask = 32
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+collision/safe_margin = 0.001
+_sections_unfolded = [ "Collision", "Visibility" ]
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerHurtboxes/ThirdSwingHurtBox3" index="0"]
+
+shape = SubResource( 13 )
+disabled = false
+
+[node name="MeshInstance" type="MeshInstance" parent="PlayerHurtboxes/ThirdSwingHurtBox3" index="1"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 14 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="6"]
 
 playback_process_mode = 1
 master_player = NodePath("../AnimationPlayer")
@@ -319,6 +543,6 @@ data = {
 } ]
 }
 
-[node name="SkillSceneObjects" type="Spatial" parent="." index="6"]
+[node name="SkillSceneObjects" type="Spatial" parent="." index="7"]
 
 

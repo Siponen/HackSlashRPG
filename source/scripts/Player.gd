@@ -17,6 +17,11 @@ var currentPlayerState
 
 var skillManager
 
+#Recovery state
+var onRecovery = false
+var recoveryTime = 0
+var recoveryTimeLimit = 0
+
 #Debuffs
 var isSilenced = false
 
@@ -53,6 +58,9 @@ func _ready():
 	pass
 
 func loadSounds():
+	loadedSounds["hit1"] = load("res://assets/sound/sfx_damage_hit2.wav")
+	loadedSounds["hit2"] = load("res://assets/sound/sfx_exp_medium4.wav")
+	loadedSounds["hit3"] = load("res://assets/sound/sfx_exp_short_hard2.wav")
 	loadedSounds["jump"] = load("res://assets/sound/sfx_movement_jump17.wav")
 	loadedSounds["land"] = load("res://assets/sound/sfx_movement_jump17_landing.wav")
 	loadedSounds["dash"] = load("res://assets/sound/sfx_movement_jump14.wav")
@@ -123,6 +131,11 @@ func getTargetPositionByRayTrace():
 
 # Update
 func  _process(delta):
+	if onRecovery:
+		recoveryTime += delta
+		if recoveryTime > recoveryTimeLimit:
+			onRecovery = false
+	
 	currentPlayerState.update(delta)
 	skillManager.update(delta)
 	pass

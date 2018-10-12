@@ -34,7 +34,7 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
-			"attackTime": 0.1,
+			"attackTime": 0.3,
 			"damage": 30,
 		},
 		{
@@ -48,7 +48,7 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
-			"attackTime": 0.1,
+			"attackTime": 0.3,
 			"damage": 30
 		},
 		{
@@ -62,7 +62,7 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
-			"attackTime": 0.1,
+			"attackTime": 0.3,
 			"damage": 30
 		},
 	]

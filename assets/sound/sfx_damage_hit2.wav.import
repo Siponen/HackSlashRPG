@@ -7,10 +7,7 @@ path="res://.import/sfx_damage_hit2.wav-8c830d3997da110ebab115806afa7faf.sample"
 [deps]
 
 source_file="res://assets/sound/sfx_damage_hit2.wav"
-source_md5="7184805c1bed6a440bd020c25bbecb7d"
-
 dest_files=[ "res://.import/sfx_damage_hit2.wav-8c830d3997da110ebab115806afa7faf.sample" ]
-dest_md5="231d80f4373fdf70585d12129a730fb1"
 
 [params]
 

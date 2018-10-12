@@ -1,6 +1,10 @@
 var parent
 var assignedDevice # M&K, [Gamepads] 1,2,3,4,5,6...20
 
+var onRecovery = false
+var recoveryTime = 0
+var recoveryTimeLimit = 0
+
 var camera
 var upDirection = Vector3(0,1,0)
 var currentAngle  = 0
@@ -22,7 +26,7 @@ func onExit():
 
 func update(delta):
 	setPlayerOrentation()
-	if not parent.isSilenced:
+	if not (parent.isSilenced and parent.onRecovery):
 		if Input.is_action_just_pressed("dodge"):
 			parent.emit_signal("activate_skill", "dodge")
 		
