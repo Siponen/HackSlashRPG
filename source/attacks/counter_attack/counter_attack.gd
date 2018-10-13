@@ -16,7 +16,7 @@ func _init():
 	cooldownTimer = 0
 	currentCooldownTime = 0
 	defaultCooldownTime = 3 #The cooldown used after using a skill
-		
+
 	skillData = [
 		{
 			"stateId": "counter",
@@ -30,21 +30,20 @@ func _init():
 			"onExitEffectSound": "land ",
 			
 			"attackTime": 2.5,
-			"damage": 100
 		},
-		{
-				"stateId": "inputJump",
-				"entityAnimation": "jump",
-				"spellSceneEffect": null,
-				
-				"onEnterCharacterSound": null,
-				"onExitCharacterSound": null,
-				
-				"onEnterEffectSound": "jump",
-				"onExitEffectSound": "land ",
-				
-				"attackTime": 2.5,
-				"damage": 100
+		{ #Success skill state
+			"stateId": "inputJump",
+			"entityAnimation": "jump",
+			"spellSceneEffect": null,
+			
+			"onEnterCharacterSound": null,
+			"onExitCharacterSound": null,
+			
+			"onEnterEffectSound": "jump",
+			"onExitEffectSound": "land ",
+			
+			"attackTime": 2.5,
+			"damage": 100
 		},
 		{ #Fail skill state
 			"stateId": "teleport",
@@ -58,6 +57,5 @@ func _init():
 			"onExitEffectSound": "land ",
 			
 			"attackTime": 0.5,
-			"damage": 100
 		}, 
 	]

@@ -1,0 +1,8 @@
+Area.
+Can't reset bodies that has entered.
+If you disable an area, and activate it. Bodies that already entered the area won't be detected by signal body_entered. And there's no way to reset it,
+other than to create a new instance of the hurtbox.
+
+Repositioning the area did not help either. Probably because it's done inbetween two frames and before the next physics_process() tick.
+Conclusion: Area is not suitable for re-useable hurtboxes.
+

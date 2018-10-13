@@ -1,4 +1,6 @@
 var parent
+var skillManager
+
 var assignedDevice # M&K, [Gamepads] 1,2,3,4,5,6...20
 
 var onRecovery = false
@@ -11,6 +13,8 @@ var currentAngle  = 0
 
 var viewport
 var centerPosition
+
+var isHoldingAttack = false
 
 func _init(_camera, _viewport):
 	camera = _camera
@@ -26,30 +30,40 @@ func onExit():
 
 func update(delta):
 	setPlayerOrentation()
-	if not (parent.isSilenced and parent.onRecovery):
-		if Input.is_action_just_pressed("dodge"):
-			parent.emit_signal("activate_skill", "dodge")
-		
-		elif Input.is_action_just_pressed("cancel"):
-			parent.emit_signal("cancel_skill","cancel")
-			
-		elif Input.is_action_just_pressed("attack"): #Attack should be toggable
-			parent.emit_signal("activate_skill","basic")
-			
-		elif Input.is_action_just_pressed("heavy_attack"):
-			parent.emit_signal("activate_skill","heavy")
-			
-		elif Input.is_action_just_pressed("counter_attack"):
-			parent.emit_signal("activate_skill","counter")
-			
-		elif Input.is_action_just_pressed("slot_1"):
-			parent.emit_signal("activate_skill","slot_1")
-			
-		elif Input.is_action_just_pressed("slot_2"):
-			parent.emit_signal("activate_skill", "slot_2")
-			
-		elif Input.is_action_just_pressed("slot_3"):
-			parent.emit_signal("activate_skill", "slot_3")
+	
+	#Pressed logic
+	if Input.is_action_just_pressed("dodge"):
+		parent.emit_signal("activate_skill", "dodge")
+
+	elif Input.is_action_just_pressed("cancel"):
+		parent.emit_signal("cancel_skill","cancel")
+
+	elif Input.is_action_just_pressed("attack"): #Toggable attack
+		isHoldingAttack = true
+		parent.emit_signal("activate_skill","basic")
+
+	elif isHoldingAttack: #Do this
+		parent.emit_signal("activate_skill","basic")
+
+	elif Input.is_action_just_pressed("heavy_attack"):
+		parent.emit_signal("activate_skill","heavy")
+
+	elif Input.is_action_just_pressed("counter_attack"):
+		parent.emit_signal("activate_skill","counter")
+
+	elif Input.is_action_just_pressed("slot_1"):
+		parent.emit_signal("activate_skill","slot_1")
+
+	elif Input.is_action_just_pressed("slot_2"):
+		parent.emit_signal("activate_skill", "slot_2")
+
+	elif Input.is_action_just_pressed("slot_3"):
+		parent.emit_signal("activate_skill", "slot_3")
+
+	#Unpressed logic
+	if Input.is_action_just_released("attack"):
+		isHoldingAttack = false
+	
 	pass
 
 func setPlayerOrentation():
@@ -70,7 +84,7 @@ func setPlayerOrentation():
 func getPlayerMovementVelocity():
 	var cameraForward = camera.global_transform.basis.z.normalized()
 	var cameraLeft = camera.global_transform.basis.x.normalized()
-
+	
 	var velocity = Vector3()
 	if Input.is_action_pressed("move_up"):
 		velocity -= cameraForward * parent.MOVE_SPEED

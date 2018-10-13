@@ -1,27 +1,32 @@
+#This is a skill scene script cycle through animations by step.
+#Normally used in repeatable attacks like, basic attacks.
+
 extends Spatial
 
 var animPlayer
 var pausePoint
-var damageArray = [] 
 
-var index = 0
-var numStates = 0
+var damageArray = []
+var numSteps
 
 func _ready():
 	animPlayer = get_node("AnimationPlayer")
 
+func setSteps(_numSteps):
+	numSteps = _numSteps
+
 func addDamage(_damageInstance):
 	damageArray.append(_damageInstance)
-	pass
 
 func setDamage(_index, _damageInstance):
-	if _index < 0 and _index < damageArray.size():
+	if _index > 0 and _index <= numSteps:
 		damageArray[_index] = _damageInstance
 	pass
 
 func start(animName):
 	animPlayer.play(animName)
 	show()
+	pass
 
 func startFromPause():
 	animPlayer.seek(pausePoint, true)

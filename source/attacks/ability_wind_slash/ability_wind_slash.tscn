@@ -1,298 +1,106 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://source/attacks/ability_wind_slash/scene_wind_slash.gd" type="Script" id=1]
-[ext_resource path="res://source/attacks/ability_wind_slash/Hurtbox.gd" type="Script" id=2]
-[ext_resource path="res://assets/sound/sfx_exp_short_hard1.wav" type="AudioStream" id=3]
+[ext_resource path="res://source/hurtboxes/AoeHurtBox.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 1, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="CubeMesh" id=2]
 
-render_priority = 0
-flags_transparent = false
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_no_depth_test = false
-flags_use_point_size = false
-flags_world_triplanar = false
-flags_fixed_size = false
-flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
-albedo_color = Color( 0.582764, 0, 0.601563, 1 )
-metallic = 0.0
-metallic_specular = 0.5
-metallic_texture_channel = 0
-roughness = 0.0
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-transmission_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
-distance_fade_enable = false
-_sections_unfolded = [ "Albedo" ]
-
-[sub_resource type="CubeMesh" id=3]
-
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector3( 2, 2, 2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 1, 1, 1 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="Animation" id=4]
 
-render_priority = 0
-flags_transparent = false
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_no_depth_test = false
-flags_use_point_size = false
-flags_world_triplanar = false
-flags_fixed_size = false
-flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
-albedo_color = Color( 0.580392, 0, 0.6, 1 )
-metallic = 0.0
-metallic_specular = 0.5
-metallic_texture_channel = 0
-roughness = 0.0
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-transmission_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
-distance_fade_enable = false
-_sections_unfolded = [ "Albedo" ]
-
-[sub_resource type="CubeMesh" id=6]
-
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
-[sub_resource type="BoxShape" id=7]
-
-extents = Vector3( 1, 1, 1 )
-
-[sub_resource type="SpatialMaterial" id=8]
-
-render_priority = 0
-flags_transparent = false
-flags_unshaded = false
-flags_vertex_lighting = false
-flags_no_depth_test = false
-flags_use_point_size = false
-flags_world_triplanar = false
-flags_fixed_size = false
-flags_albedo_tex_force_srgb = false
-vertex_color_use_as_albedo = false
-vertex_color_is_srgb = false
-params_diffuse_mode = 0
-params_specular_mode = 0
-params_blend_mode = 0
-params_cull_mode = 0
-params_depth_draw_mode = 0
-params_line_width = 1.0
-params_point_size = 1.0
-params_billboard_mode = 0
-params_grow = false
-params_use_alpha_scissor = false
-albedo_color = Color( 0.580392, 0, 0.6, 1 )
-metallic = 0.0
-metallic_specular = 0.5
-metallic_texture_channel = 0
-roughness = 0.0
-roughness_texture_channel = 0
-emission_enabled = false
-normal_enabled = false
-rim_enabled = false
-clearcoat_enabled = false
-anisotropy_enabled = false
-ao_enabled = false
-depth_enabled = false
-subsurf_scatter_enabled = false
-transmission_enabled = false
-refraction_enabled = false
-detail_enabled = false
-uv1_scale = Vector3( 1, 1, 1 )
-uv1_offset = Vector3( 0, 0, 0 )
-uv1_triplanar = false
-uv1_triplanar_sharpness = 1.0
-uv2_scale = Vector3( 1, 1, 1 )
-uv2_offset = Vector3( 0, 0, 0 )
-uv2_triplanar = false
-uv2_triplanar_sharpness = 1.0
-proximity_fade_enable = false
-distance_fade_enable = false
-_sections_unfolded = [ "Albedo" ]
-
-[sub_resource type="CubeMesh" id=9]
-
-size = Vector3( 2, 2, 2 )
-subdivide_width = 0
-subdivide_height = 0
-subdivide_depth = 0
-
-[sub_resource type="Animation" id=10]
-
-resource_name = "attack"
-length = 1.2
+resource_name = "attack1"
+length = 1.0
 loop = false
 step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("FirstAttackHurtbox/CollisionShape:disabled")
+tracks/0/type = "method"
+tracks/0/path = NodePath("FirstSwingHurtBox")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("FirstAttackHurtbox/MeshInstance:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("SecondAttackHurtBox/CollisionShape:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.6, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("SecondAttackHurtBox/MeshInstance:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.6, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("ThirdAttackHurtBox/CollisionShape:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.9, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("ThirdAttackHurtBox/MeshInstance:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.9, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("AudioStreamPlayer2D:playing")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0.3, 0.6, 0.9 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, true ]
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "onStartHurtbox"
+}, {
+"args": [  ],
+"method": "onEndHurtbox"
+} ]
 }
 
-[node name="ability_wind_slash" type="Spatial" index="0"]
+[sub_resource type="Animation" id=5]
+
+resource_name = "attack2"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "method"
+tracks/0/path = NodePath("SecondSwingHurtBox")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "onStartHurtbox"
+}, {
+"args": [  ],
+"method": "onEndHurtbox"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "attack3"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "method"
+tracks/0/path = NodePath("ThirdSwingHurtBox")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "onStartHurtbox"
+}, {
+"args": [  ],
+"method": "onEndHurtbox"
+} ]
+}
+
+[node name="WindSlash" type="Spatial"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform", "Update", "Visibility" ]
 
-[node name="FirstAttackHurtbox" type="Area" parent="." index="0"]
+[node name="FirstSwingHurtBox" type="Area" parent="." index="0"]
 
 editor/display_folded = true
-transform = Transform( 2.59948, 0, 0, 0, 1, 0, 0, 0, 0.714382, 0, 0, 0 )
-input_ray_pickable = true
+transform = Transform( 0.806225, 0.000501533, -0.819905, -0.000295209, 1, -0.000548449, 0.410133, 0.00136783, 1.61175, 2.07301, -0.000575824, 0.0011888 )
+input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
 gravity_point = false
@@ -304,8 +112,8 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
-collision_layer = 1
-collision_mask = 1
+collision_layer = 32
+collision_mask = 32
 audio_bus_override = false
 audio_bus_name = "Master"
 reverb_bus_enable = false
@@ -313,19 +121,18 @@ reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
 script = ExtResource( 2 )
-_sections_unfolded = [ "Audio Bus", "Collision", "Reverb Bus", "Transform", "Visibility" ]
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="FirstAttackHurtbox" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="FirstSwingHurtBox" index="0"]
 
 shape = SubResource( 1 )
-disabled = true
+disabled = false
 _sections_unfolded = [ "Transform" ]
 
-[node name="MeshInstance" type="MeshInstance" parent="FirstAttackHurtbox" index="1"]
+[node name="MeshInstance" type="MeshInstance" parent="FirstSwingHurtBox" index="1"]
 
-visible = false
 layers = 1
-material_override = SubResource( 2 )
+material_override = null
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -333,15 +140,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
-_sections_unfolded = [ "Geometry", "Visibility" ]
 
-[node name="SecondAttackHurtBox" type="Area" parent="." index="1"]
+[node name="SecondSwingHurtBox" type="Area" parent="." index="1"]
 
 editor/display_folded = true
-transform = Transform( 1.94012, 0, 0.538419, 0, 1, 0, -1.84899, 0, 0.564954, 0, 0, -2.62104 )
+transform = Transform( 0.378719, 0.000277349, 0.653292, 0.000142156, 1, -0.000753871, -0.326789, 0.000756415, 0.757106, 2.07301, -0.000575824, 0.0011888 )
 input_ray_pickable = true
 input_capture_on_drag = false
 space_override = 0
@@ -354,25 +160,26 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
-collision_layer = 1
-collision_mask = 1
+collision_layer = 32
+collision_mask = 32
 audio_bus_override = false
 audio_bus_name = "Master"
 reverb_bus_enable = false
 reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
+script = ExtResource( 2 )
+_sections_unfolded = [ "Collision", "Visibility" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="SecondAttackHurtBox" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="SecondSwingHurtBox" index="0"]
 
-shape = SubResource( 4 )
-disabled = true
+shape = SubResource( 3 )
+disabled = false
 
-[node name="MeshInstance" type="MeshInstance" parent="SecondAttackHurtBox" index="1"]
+[node name="MeshInstance" type="MeshInstance" parent="SecondSwingHurtBox" index="1"]
 
-visible = false
 layers = 1
-material_override = SubResource( 5 )
+material_override = null
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -380,15 +187,14 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 6 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
-_sections_unfolded = [ "Geometry", "Visibility" ]
 
-[node name="ThirdAttackHurtBox" type="Area" parent="." index="2"]
+[node name="ThirdSwingHurtBox" type="Area" parent="." index="2"]
 
 editor/display_folded = true
-transform = Transform( 2.21545, 0, -0.330112, 0, 1, 0, 2.10518, 0, 0.347403, 0, 0, -1.53513 )
+transform = Transform( -0.500131, 0.000277349, 0.0187037, 0.000145782, 1, 0.000751099, -0.00935585, 0.000756415, -0.999826, 2, -0.000555544, 0.00114693 )
 input_ray_pickable = true
 input_capture_on_drag = false
 space_override = 0
@@ -401,26 +207,26 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
-collision_layer = 1
-collision_mask = 1
+collision_layer = 32
+collision_mask = 32
 audio_bus_override = false
 audio_bus_name = "Master"
 reverb_bus_enable = false
 reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
+script = ExtResource( 2 )
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="ThirdAttackHurtBox" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="ThirdSwingHurtBox" index="0"]
 
-shape = SubResource( 7 )
-disabled = true
-_sections_unfolded = [ "Transform", "Visibility" ]
+shape = SubResource( 3 )
+disabled = false
 
-[node name="MeshInstance" type="MeshInstance" parent="ThirdAttackHurtBox" index="1"]
+[node name="MeshInstance" type="MeshInstance" parent="ThirdSwingHurtBox" index="1"]
 
-visible = false
 layers = 1
-material_override = SubResource( 8 )
+material_override = null
 cast_shadow = 1
 extra_cull_margin = 0.0
 use_in_baked_light = false
@@ -428,10 +234,10 @@ lod_min_distance = 0.0
 lod_min_hysteresis = 0.0
 lod_max_distance = 0.0
 lod_max_hysteresis = 0.0
-mesh = SubResource( 9 )
+mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
-_sections_unfolded = [ "Geometry", "Visibility" ]
+_sections_unfolded = [ "Transform" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 
@@ -440,17 +246,9 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/attack = SubResource( 10 )
+anims/attack1 = SubResource( 4 )
+anims/attack2 = SubResource( 5 )
+anims/attack3 = SubResource( 6 )
 blend_times = [  ]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="4"]
-
-stream = ExtResource( 3 )
-volume_db = -9.49
-autoplay = false
-max_distance = 2000.0
-attenuation = 1.0
-bus = "Master"
-area_mask = 1
 
 

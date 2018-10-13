@@ -10,10 +10,28 @@ var timer = 0
 var isActive = true
 var yOffset = 20
 
-func onEnter(skillStateData):
+var onEnterCharacterSound
+var onExitCharacterSound
+
+var onEnterEffectSound
+var onExitEffectSound
+
+var onEnterSceneAnimation
+var onExitSceneAnimation
+
+func onEnter(stateData):
 	startPosition = parent.global_transform.origin
 	endPosition = parent.getTargetPositionByRayTrace()
-	timeLimit = skillStateData.attackTime
+	timeLimit = stateData.attackTime
+	
+	onEnterCharacterSound = stateData.onEnterCharacterSound
+	onExitCharacterSound = stateData.onExitCharacterSound
+	
+	onEnterEffectSound = stateData.onEnterEffectSound
+	onExitEffectSound = stateData.onExitEffectSound
+	
+	onEnterSceneAnimation = stateData.onEnterSceneAnimation
+	onExitSceneAnimation = stateData.onExitSceneAnimation
 	
 	if startPosition.y > endPosition.y:
 		peakHeight = startPosition.y + yOffset
@@ -23,14 +41,27 @@ func onEnter(skillStateData):
 	timer = 0
 	isActive = true
 	activateJumpCollisions()
-	parent.emit_signal("on_play_sound", "jump")
+	
+	if not onEnterCharacterSound.empty():
+		parent.emit_signal("on_play_sound", onEnterCharacterSound)
+	
+	if not onEnterEffectSound.empty():
+		parent.emit_signal("on_play_sound", onEnterEffectSound)
 	pass
 
 func onExit():
 	isActive = false
 	parent.scale = Vector3(1,1,1)
 	disableJumpCollisions()
-	parent.emit_signal("on_play_sound", "land")
+	
+	if not onExitCharacterSound.empty():
+		parent.emit_signal("on_play_sound", onExitCharacterSound)
+	
+	if not onExitEffectSound.empty():
+		parent.emit_signal("on_play_sound", onExitEffectSound)
+	
+	if not onExitSceneAnimation.empty():
+		parent.skillManager.emit_signal("start_skill_animation", onExitSceneAnimation)
 	pass
 
 func update(delta):

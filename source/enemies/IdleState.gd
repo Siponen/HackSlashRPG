@@ -1,7 +1,7 @@
 var parent
 
 var moveTimer = 0
-var moveCooldown = 1
+var moveCooldown = 0.5
 
 #var startPosition
 #var endPosition
@@ -18,6 +18,6 @@ func physics(delta):
 	if moveTimer > moveCooldown:
 		var velX = rand_range(-1,1)
 		var velY = rand_range(-1,1)
-		parent.move_and_collide(Vector3(velX * parent.walkSpeed, 0, velY * parent.walkSpeed))
+		parent.move_and_collide(Vector3(velX * parent.walkSpeed, -0.5, velY * parent.walkSpeed))
 		moveTimer = 0
 	pass

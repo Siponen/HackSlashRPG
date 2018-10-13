@@ -5,6 +5,7 @@ func _init():
 	displayName = "Wind Slash"
 	skillType = "basic"
 	attackRange = 400
+	sceneSteps = 3
 	assignedSkillSlot = null #The skill slot the skill is bound to
 	
 	#Cast data
@@ -35,7 +36,7 @@ func _init():
 			"onExitEffectSound": null,
 			
 			"attackTime": 0.3,
-			"damage": 30,
+			"damageInstance": [{"damage": 10, "damageType": "magic"}],
 		},
 		{
 			"entityAnimation": "attack2",
@@ -49,7 +50,7 @@ func _init():
 			"onExitEffectSound": null,
 			
 			"attackTime": 0.3,
-			"damage": 30
+			"damageInstance": [{"damage": 10, "damageType": "magic"}],
 		},
 		{
 			"entityAnimation": "attack3",
@@ -63,6 +64,6 @@ func _init():
 			"onExitEffectSound": null,
 			
 			"attackTime": 0.3,
-			"damage": 30
+			"damageInstance": [{"damage": 10, "damageType": "magic"}]
 		},
 	]

@@ -1,20 +1,21 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/scripts/Boss.gd" type="Script" id=1]
-[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/scripts/ThreatTrigger.gd" type="Script" id=3]
+[ext_resource path="res://source/scripts/ThreatTrigger.gd" type="Script" id=2]
+[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=4]
-
-[sub_resource type="BoxShape" id=1]
-
-extents = Vector3( 1, 1, 1 )
 
 [sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 1, 1, 1 )
 
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1, 1, 1 )
+
 [sub_resource type="CubeMesh" id=3]
 
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
 size = Vector3( 2, 2, 2 )
 subdivide_width = 0
 subdivide_height = 0
@@ -68,13 +69,13 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
-[node name="Boss" type="KinematicBody"]
+[node name="Boss" type="KinematicBody" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32917, 6.67949 )
 input_ray_pickable = true
 input_capture_on_drag = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 131
+collision_mask = 163
 axis_lock_linear_x = false
 axis_lock_linear_y = false
 axis_lock_linear_z = false
@@ -83,18 +84,11 @@ axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 
-[node name="Abilities" type="Node" parent="." index="0"]
+[node name="ThreatTrigger" type="Area" parent="." index="0"]
 
-[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 2 )]
-
-[node name="CollisionShape" type="CollisionShape" parent="." index="1"]
-
-shape = SubResource( 1 )
-disabled = false
-
-[node name="ThreatTrigger" type="Area" parent="." index="2"]
-
+editor/display_folded = true
 input_ray_pickable = false
 input_capture_on_drag = false
 space_override = 0
@@ -115,7 +109,7 @@ reverb_bus_enable = false
 reverb_bus_name = "Master"
 reverb_bus_amount = 0.0
 reverb_bus_uniformity = 0.0
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="ThreatTrigger" index="0"]
@@ -124,6 +118,17 @@ transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
 shape = SubResource( 2 )
 disabled = false
 _sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Abilities" type="Node" parent="." index="1"]
+
+editor/display_folded = true
+
+[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 3 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="2"]
+
+shape = SubResource( 1 )
+disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="3"]
 
@@ -156,6 +161,7 @@ blend_times = [  ]
 
 stream = ExtResource( 4 )
 volume_db = 0.0
+pitch_scale = 1.0
 autoplay = false
 max_distance = 2000.0
 attenuation = 1.0

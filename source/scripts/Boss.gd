@@ -17,12 +17,16 @@ var threatList = [] # Player/Companions/Minions, ThreatValue
 var currentTarget
 
 #Action Queue
-#StayAtRange, Chase(Point,Walk/Run), Attack(Body,Distance,AttackName), RunAwayFrom(Body), Defend(Body)
+#StayAtRange, Chase(Point,Walk/Run), Attack(Body,Distance,AttackName), Evade(Body), Defend(Body), RunAway(Body)
+
+#When StayAtRange - Wait for cooldowns or Kite player
+#Chase - To get into position for an attack / Combo
+
 var currentState = {}
 var loadedStates = {}
 
 #Health
-var health = preload("res://source/scripts/Health.gd").new(self, 500)
+var health = preload("res://source/scripts/Health.gd").new(self, 100,100)
 
 #Threat signals
 signal threat_deals_damage
@@ -38,12 +42,11 @@ signal follow_player
 #State signals
 signal next_state
 
-
 var bossName
 var cooldown = 1
 var timer = 0
 
-var walkSpeed = 2
+var walkSpeed = 4
 
 #Abilities
 onready var doomBarrage = $Abilities/doom_barrage
@@ -87,6 +90,12 @@ func onDeath():
 	$DeathSound.play()
 	pass
 
+func onTrigger():
+	onNextState("chase")
+	pass
+
 func onNextState(stateId):
+	currentState.onExit()
 	currentState = loadedStates[stateId]
+	currentState.onEnter()
 	pass

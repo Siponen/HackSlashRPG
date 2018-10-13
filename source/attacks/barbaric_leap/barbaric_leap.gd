@@ -5,6 +5,7 @@ func _init():
 	displayName = "Barbaric Leap"
 	skillType = "heavy"
 	attackRange = 400
+	sceneSteps = 1
 	assignedSkillSlot = null #The skill slot the skill is bound to
 	
 	#Cast data
@@ -21,15 +22,17 @@ func _init():
 		{
 			"stateId": "jump",
 			"entityAnimation": "jump",
-			"spellSceneEffect": null,
 			
-			"onEnterCharacterSound": null,
-			"onExitCharacterSound": null,
+			"onEnterCharacterSound": "",
+			"onExitCharacterSound": "",
 			
 			"onEnterEffectSound": "jump",
-			"onExitEffectSound": "land ",
+			"onExitEffectSound": "land",
+			
+			"onEnterSceneAnimation": "",
+			"onExitSceneAnimation": "attack",
 			
 			"attackTime": 1.5,
-			"damage": 100
+			"damageInstance": [{"damage": 50, "damageType": "blunt"}]
 		},
 	]

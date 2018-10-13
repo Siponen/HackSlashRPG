@@ -1,5 +1,6 @@
 var id
 var displayName
+var sceneSteps
 var skillType #dodge, dash, counter, block
 var attackRange
 var assignedSkillSlot #The skill slot the skill is bound to

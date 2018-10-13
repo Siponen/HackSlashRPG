@@ -22,6 +22,8 @@ var onRecovery = false
 var recoveryTime = 0
 var recoveryTimeLimit = 0
 
+var health = preload("res://source/scripts/Health.gd").new(self,100,100)
+
 #Debuffs
 var isSilenced = false
 
@@ -41,6 +43,7 @@ signal player_state_finished
 signal player_conditional_state_finished
 
 signal player_basic_attack
+signal player_reset_attack
 
 func _ready():
 	viewport = get_viewport()
@@ -49,7 +52,7 @@ func _ready():
 	animPlayer = $AnimationPlayer
 	animTreePlayer = $AnimationTreePlayer
 
-	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, $SkillSceneObjects)
+	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, $Skills)
 
 	loadSounds()
 	initStates()
@@ -127,6 +130,7 @@ func getTargetPositionByRayTrace():
 	var to = from + camera.project_ray_normal(mousePos) * rayLength
 	var space_state = get_world().direct_space_state
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
+	print("Result: ", result.position, result.collider)
 	return result.position
 
 # Update
