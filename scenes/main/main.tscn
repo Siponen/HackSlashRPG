@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/main/main.gd" type="Script" id=1]
 [ext_resource path="res://source/prefabs/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/World/World.gd" type="Script" id=3]
-[ext_resource path="res://source/enemies/Boss.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/bosses/Boss.tscn" type="PackedScene" id=4]
 
 [sub_resource type="PlaneShape" id=1]
 
@@ -100,7 +100,6 @@ collision_mask = 179
 
 [node name="Floor" type="StaticBody" parent="World" index="1"]
 
-editor/display_folded = true
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -132,6 +131,7 @@ lod_max_hysteresis = 0.0
 mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = null
+_sections_unfolded = [ "material" ]
 
 [node name="StaticBodyTest" type="StaticBody" parent="World" index="2"]
 

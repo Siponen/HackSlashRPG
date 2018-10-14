@@ -10,6 +10,12 @@ func _init(_parent):
 	parent = _parent
 	randomize()
 
+func onEnter():
+	pass
+
+func onExit():
+	pass
+
 func update(delta):
 	pass
 	

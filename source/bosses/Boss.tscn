@@ -1,15 +1,15 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://source/scripts/Boss.gd" type="Script" id=1]
-[ext_resource path="res://source/scripts/ThreatTrigger.gd" type="Script" id=2]
+[ext_resource path="res://source/bosses/Boss.gd" type="Script" id=1]
+[ext_resource path="res://source/threat/ThreatSystem.gd" type="Script" id=2]
 [ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=4]
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 1, 1, 1 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=2]
 
 extents = Vector3( 1, 1, 1 )
 
@@ -86,7 +86,7 @@ collision/safe_margin = 0.001
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="ThreatTrigger" type="Area" parent="." index="0"]
+[node name="ThreatSystem" type="Area" parent="." index="0"]
 
 editor/display_folded = true
 input_ray_pickable = false
@@ -101,8 +101,8 @@ angular_damp = 1.0
 priority = 0.0
 monitoring = true
 monitorable = true
-collision_layer = 32768
-collision_mask = 32768
+collision_layer = 0
+collision_mask = 16
 audio_bus_override = false
 audio_bus_name = "Master"
 reverb_bus_enable = false
@@ -112,10 +112,10 @@ reverb_bus_uniformity = 0.0
 script = ExtResource( 2 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="ThreatTrigger" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="ThreatSystem" index="0"]
 
 transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
@@ -127,7 +127,7 @@ editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="2"]
 
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 disabled = false
 
 [node name="MeshInstance" type="MeshInstance" parent="." index="3"]

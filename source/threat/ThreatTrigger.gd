@@ -12,7 +12,7 @@ func _ready():
 	
 func onBodyEnter(body):
 	bodiesInArea[body.name] = body
-	boss
+	boss.onTrigger(body)
 	print("Boss ", boss.bossName," is triggered by ", body.name)
 	pass
 	
