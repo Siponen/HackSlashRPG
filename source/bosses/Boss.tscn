@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://source/bosses/Boss.gd" type="Script" id=1]
 [ext_resource path="res://source/threat/ThreatSystem.gd" type="Script" id=2]
-[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=4]
+[ext_resource path="res://source/bosses/BossPatternDirector.gd" type="Script" id=3]
+[ext_resource path="res://source/boss_attacks/DoomLaser/DoomLaser.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/attacks/doom_barrage/doom_barrage.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sound/sfx_exp_medium4.wav" type="AudioStream" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -119,18 +121,24 @@ shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="Abilities" type="Node" parent="." index="1"]
+[node name="PatternDirector" type="Spatial" parent="." index="1"]
+
+script = ExtResource( 3 )
+
+[node name="DoomLaser" parent="PatternDirector" index="0" instance=ExtResource( 4 )]
+
+[node name="Abilities" type="Node" parent="." index="2"]
 
 editor/display_folded = true
 
-[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 3 )]
+[node name="doom_barrage" parent="Abilities" index="0" instance=ExtResource( 5 )]
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="2"]
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
 
 shape = SubResource( 2 )
 disabled = false
 
-[node name="MeshInstance" type="MeshInstance" parent="." index="3"]
+[node name="MeshInstance" type="MeshInstance" parent="." index="4"]
 
 layers = 1
 material_override = null
@@ -146,7 +154,7 @@ skeleton = NodePath("..")
 material/0 = null
 _sections_unfolded = [ "Transform" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -157,15 +165,24 @@ anims/Death = SubResource( 4 )
 anims/Hurt = SubResource( 5 )
 blend_times = [  ]
 
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="." index="5"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="." index="6"]
 
-stream = ExtResource( 4 )
-volume_db = 0.0
+stream = ExtResource( 6 )
+attenuation_model = 0
+unit_db = 0.0
+unit_size = 1.0
+max_db = 3.0
 pitch_scale = 1.0
 autoplay = false
-max_distance = 2000.0
-attenuation = 1.0
+max_distance = 0.0
+out_of_range_mode = 0
 bus = "Master"
 area_mask = 1
+emission_angle_enabled = false
+emission_angle_degrees = 45.0
+emission_angle_filter_attenuation_db = -12.0
+attenuation_filter_cutoff_hz = 5000.0
+attenuation_filter_db = -24.0
+doppler_tracking = 0
 
 

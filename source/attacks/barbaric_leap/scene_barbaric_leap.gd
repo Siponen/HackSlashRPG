@@ -1,5 +1,5 @@
 extends "res://source/scripts/SkillSceneScript.gd"
 
 func _ready():
-	$Hurtbox.damageIndex = 0
+	$Hurtbox.addDamage(10,"physical")
 	pass

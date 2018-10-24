@@ -35,6 +35,9 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
+			"onEnterSceneAnimation": "attack1",
+			"onExitSceneAnimation": null,
+			
 			"attackTime": 0.3,
 			"damageInstance": [{"damage": 10, "damageType": "magic"}],
 		},
@@ -49,6 +52,9 @@ func _init():
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
 			
+			"onEnterSceneAnimation": "attack2",
+			"onExitSceneAnimation": null,
+			
 			"attackTime": 0.3,
 			"damageInstance": [{"damage": 10, "damageType": "magic"}],
 		},
@@ -62,6 +68,9 @@ func _init():
 			
 			"onEnterEffectSound": "hit_1",
 			"onExitEffectSound": null,
+			
+			"onEnterSceneAnimation": "attack3",
+			"onExitSceneAnimation": null,
 			
 			"attackTime": 0.3,
 			"damageInstance": [{"damage": 10, "damageType": "magic"}]

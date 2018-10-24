@@ -68,12 +68,7 @@ func update(delta):
 func updateThreatValuesFirstStep(delta):
 	for i in range(numThreats):
 		var threat = threatList[i]
-		
-		#for
-		#ThreatBehaviour(threat)
-		#Add/Remove threat
-		if not threat.isActiveInBattle:
-			threat.threatValue -= THREAT_DECAY_PER_SECOND*delta
+		threat.threatValue -= THREAT_DECAY_PER_SECOND*delta
 		
 		if threat.threatValue <= 0:
 			removeThreatAt(i)
@@ -89,7 +84,7 @@ func onBodyEnter(body):
 	if numThreats == 0:
 		addThreat(body)
 		currentTarget = threatList[0]
-		parent.emit_signal("trigger_aggro")
+		parent.emit_signal("trigger_aggro",currentTarget)
 	else:
 		if not isBodyInThreatList(body):
 			addThreat(body)

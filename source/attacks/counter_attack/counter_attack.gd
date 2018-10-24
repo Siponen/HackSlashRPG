@@ -5,6 +5,7 @@ func _init():
 	displayName = "Counter attack"
 	skillType = "heavy"
 	attackRange = 400
+	sceneSteps = 1
 	assignedSkillSlot = null #The skill slot the skill is bound to
 	
 	#Cast data
@@ -16,7 +17,7 @@ func _init():
 	cooldownTimer = 0
 	currentCooldownTime = 0
 	defaultCooldownTime = 3 #The cooldown used after using a skill
-
+	
 	skillData = [
 		{
 			"stateId": "counter",
@@ -26,36 +27,45 @@ func _init():
 			"onEnterCharacterSound": null,
 			"onExitCharacterSound": null,
 			
-			"onEnterEffectSound": "jump",
-			"onExitEffectSound": "land ",
+			"onEnterEffectSound": null,
+			"onExitEffectSound": null,
 			
-			"attackTime": 2.5,
+			"onEnterSceneAnimation": null,
+			"onExitSceneAnimation": null,
+			
+			"attackTime": 1.0,
+			"damageInstance": [{"damage": 100, "damageType": "blunt"}]
 		},
-		{ #Success skill state
+		{ #Success
 			"stateId": "inputJump",
 			"entityAnimation": "jump",
-			"spellSceneEffect": null,
 			
-			"onEnterCharacterSound": null,
-			"onExitCharacterSound": null,
+			"onEnterCharacterSound": "",
+			"onExitCharacterSound": "",
 			
-			"onEnterEffectSound": "jump",
-			"onExitEffectSound": "land ",
+			"onEnterEffectSound": "explode",
+			"onExitEffectSound": "explode",
 			
-			"attackTime": 2.5,
-			"damage": 100
-		},
-		{ #Fail skill state
-			"stateId": "teleport",
-			"entityAnimation": null,
-			"spellSceneEffect": null,
-			
-			"onEnterCharacterSound": null,
-			"onExitCharacterSound": null,
-			
-			"onEnterEffectSound": "teleport",
-			"onExitEffectSound": "land ",
+			"onEnterSceneAnimation": "attack_success",
+			"onExitSceneAnimation": "attack_success2",
 			
 			"attackTime": 0.5,
-		}, 
+			"damageInstance": [{"damage": 100, "damageType": "blunt"}]
+		},
+		{ #Fail state
+			"stateId": "teleport",
+			"entityAnimation": "",
+			
+			"onEnterCharacterSound": "",
+			"onExitCharacterSound": "",
+			
+			"onEnterEffectSound": "explode",
+			"onExitEffectSound": "",
+			
+			"onEnterSceneAnimation": "",
+			"onExitSceneAnimation": "",
+			
+			"attackTime": 0.3,
+			"damageInstance": [{"damage": 100, "damageType": "blunt"}]
+		},
 	]

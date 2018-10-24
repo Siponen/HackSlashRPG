@@ -79,14 +79,14 @@ subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
 
-[node name="root" type="Node"]
+[node name="root" type="Node" index="0"]
 
 script = ExtResource( 1 )
 
 [node name="Player" parent="." index="0" instance=ExtResource( 2 )]
 
-transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0.334538, 1, 32.6221 )
-collision_layer = 16
+transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0.334538, 1.11584, 32.6221 )
+collision_layer = 17
 collision_mask = 19
 
 [node name="World" type="Node" parent="." index="1"]
@@ -95,11 +95,14 @@ script = ExtResource( 3 )
 
 [node name="DemoBoss" parent="World" index="0" instance=ExtResource( 4 )]
 
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.379145, 1.32917, 6.67949 )
 collision_layer = 128
 collision_mask = 179
 
 [node name="Floor" type="StaticBody" parent="World" index="1"]
 
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137019, 0 )
 input_ray_pickable = true
 input_capture_on_drag = false
 collision_layer = 1
@@ -112,9 +115,10 @@ _sections_unfolded = [ "Collision", "Pause", "Transform", "Visibility" ]
 
 [node name="FloorCollision" type="CollisionShape" parent="World/Floor" index="0"]
 
-transform = Transform( 5.00624, 0, 0, 0, 1, 0, 0, 0, 5.00624, 0, 0, 0 )
+transform = Transform( 5.6458, 0, 0, 0, 1, 0, 0, 0, 5.6458, 0, 0, 0 )
 shape = SubResource( 1 )
 disabled = false
+_sections_unfolded = [ "Transform" ]
 
 [node name="MeshInstance" type="MeshInstance" parent="World/Floor" index="1"]
 
@@ -169,7 +173,5 @@ material/0 = null
 _sections_unfolded = [ "Geometry" ]
 
 [node name="Items" type="Node" parent="World" index="3"]
-
-[node name="OtherPlayers" type="Node" parent="." index="2"]
 
 

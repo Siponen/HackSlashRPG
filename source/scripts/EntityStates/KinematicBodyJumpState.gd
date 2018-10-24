@@ -47,6 +47,10 @@ func onEnter(stateData):
 	
 	if not onEnterEffectSound.empty():
 		parent.emit_signal("on_play_sound", onEnterEffectSound)
+	
+	if not onEnterSceneAnimation.empty():
+		parent.skillManager.emit_signal("start_skill_animation", onEnterSceneAnimation)
+		pass
 	pass
 
 func onExit():

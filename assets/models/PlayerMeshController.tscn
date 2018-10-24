@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/models/mr_blocky.dae" type="PackedScene" id=1]
+[ext_resource path="res://assets/models/PlayerMeshController.gd" type="Script" id=2]
+
+[node name="PlayerMeshController" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+
+

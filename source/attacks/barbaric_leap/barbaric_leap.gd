@@ -32,7 +32,7 @@ func _init():
 			"onEnterSceneAnimation": "",
 			"onExitSceneAnimation": "attack",
 			
-			"attackTime": 1.5,
+			"attackTime": 0.7,
 			"damageInstance": [{"damage": 50, "damageType": "blunt"}]
 		},
 	]

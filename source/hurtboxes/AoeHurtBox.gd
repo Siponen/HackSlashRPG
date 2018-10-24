@@ -13,7 +13,7 @@ extends Area
 
 var parent
 var player
-var damageIndex
+var damageInstance = []
 
 var isActive
 var targetsAlreadyHit = {}
@@ -23,7 +23,6 @@ signal end_hurtbox
 
 func _ready():
 	parent = get_parent()
-	player = get_parent().get_parent().get_parent()
 	isActive = false
 	hide()
 	pass
@@ -34,9 +33,12 @@ func _physics_process(delta):
 		for body in bodyArray:
 			if targetsAlreadyHit.has(body.name): 
 				continue
-			body.health.emit_signal("on_damage", parent.damageArray[damageIndex])
+			body.health.emit_signal("on_damage", damageInstance)
 			targetsAlreadyHit[body.name] = body
-			print(player.name, " hurt ", body.name)
+	pass
+
+func addDamage(damage,type):
+	damageInstance.append({"damage": damage, "damageType":type})
 	pass
 
 func onStartHurtbox():

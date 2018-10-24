@@ -54,7 +54,7 @@ func _init(_parent, _skillSceneNode):
 	insertSkill("heavy", "barbaric_leap")
 	#insertSkill("dodge", "lightning_dash")
 	#insertSkill("slot_1", "teleport")
-	#insertSkill("slot_2", "counter_attack")
+	insertSkill("slot_2", "counter_attack")
 	pass
 
 func insertSkill(skillSlot, skillId):
@@ -141,7 +141,8 @@ func executeBasicSkill(skill):
 		attackTimer = 0
 		attackTimeValue = currentBasicSkillState.attackTime
 		parent.emit_signal("player_basic_attack", currentBasicSkillState)
-		skillNodes[skill.assignedSkillSlot].start("attack"+str(attackIndex))
+		#skillNodes[skill.assignedSkillSlot].start("attack"+str(attackIndex))
+		skillNodes[skill.assignedSkillSlot].start(currentBasicSkillState.onEnterSceneAnimation)
 		print("Initial Player uses ", "attack"+str(attackIndex))
 	#Non initial basic skill execution
 	else:
@@ -152,7 +153,8 @@ func executeBasicSkill(skill):
 		attackIndex += 1
 		attackTimeValue = currentBasicSkillState.attackTime
 		parent.emit_signal("player_basic_attack", currentBasicSkillState)
-		skillNodes[skill.assignedSkillSlot].start("attack"+str(attackIndex))
+		#skillNodes[skill.assignedSkillSlot].start("attack"+str(attackIndex))
+		skillNodes[skill.assignedSkillSlot].start(currentBasicSkillState.onEnterSceneAnimation)
 		print("Player uses ", "attack"+str(attackIndex))
 
 func executeSkill(skill):
@@ -178,6 +180,7 @@ func nextConditionalSkillState(isSuccess):
 	if isSuccess:
 		currentSkillState = currentSkillStateArray.pop_front() #Take the success state
 		currentSkillStateArray.pop_front() #Ignore the fail state
+		print("Success set next taste!")
 	else:
 		currentSkillStateArray.pop_front() #Ignore the success state
 		currentSkillState = currentSkillStateArray.pop_front() #Take the fail state

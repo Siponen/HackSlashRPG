@@ -16,6 +16,8 @@ var centerPosition
 
 var isHoldingAttack = false
 
+var isWalking = false
+
 func _init(_camera, _viewport):
 	camera = _camera
 	viewport = _viewport
@@ -63,7 +65,6 @@ func update(delta):
 	#Unpressed logic
 	if Input.is_action_just_released("attack"):
 		isHoldingAttack = false
-	
 	pass
 
 func setPlayerOrentation():
@@ -101,4 +102,12 @@ func getPlayerMovementVelocity():
 func physics(delta):
 	var velocity = getPlayerMovementVelocity()
 	velocity.y = 0
+	
+	if velocity.length() > 0 and isWalking == false: #Start running
+		isWalking = true
+		parent.startRunning()
+	elif velocity.length() == 0 and isWalking == true: #Stop running
+		isWalking = false
+		parent.stopRunning()
+	
 	parent.move_and_collide(velocity)

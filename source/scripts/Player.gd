@@ -33,6 +33,10 @@ var animTreePlayer
 
 signal on_hit
 signal on_play_sound
+signal on_play_animation
+
+signal start_running
+signal stop_running
 
 signal activate_skill
 signal cancel_skill
@@ -64,6 +68,7 @@ func loadSounds():
 	loadedSounds["hit1"] = load("res://assets/sound/sfx_damage_hit2.wav")
 	loadedSounds["hit2"] = load("res://assets/sound/sfx_exp_medium4.wav")
 	loadedSounds["hit3"] = load("res://assets/sound/sfx_exp_short_hard2.wav")
+	loadedSounds["explode"] = load("res://assets/sound/sfx_exp_short_hard3.wav")
 	loadedSounds["jump"] = load("res://assets/sound/sfx_movement_jump17.wav")
 	loadedSounds["land"] = load("res://assets/sound/sfx_movement_jump17_landing.wav")
 	loadedSounds["dash"] = load("res://assets/sound/sfx_movement_jump14.wav")
@@ -98,6 +103,8 @@ func initStates():
 func connectSignals():
 	connect("on_hit", self, "onHit")
 	connect("on_play_sound", self, "onPlaySound")
+	connect("start_running",self,"startRunning")
+	connect("stop_running", self, "stopRunning")
 	connect("activate_skill", self, "activateSkill")
 	connect("cancel_skill", self, "cancelSkill")
 	connect("set_player_state", self, "setPlayerState")
@@ -115,12 +122,14 @@ func addPlayerState(stateKey, state):
 
 func initPlayerCollision():
 	self.set_collision_layer_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
-	
 	self.set_collision_mask_bit(PhysicsLayers.UNPASSABLE_GEOMETRY_BIT, true)
 	self.set_collision_mask_bit(PhysicsLayers.PASSABLE_GEOMETRY_BIT, true)
 	self.set_collision_mask_bit(PhysicsLayers.PLAYER_BODY_BIT, true)
 	self.set_collision_mask_bit(PhysicsLayers.ENEMY_BODY_BIT, true)
 	self.set_collision_mask_bit(PhysicsLayers.ENEMY_DAMAGE_BIT, true)
+
+func getPosition():
+	return global_transform.origin
 
 func getTargetPositionByRayTrace():
 	var rayLength = 1000
@@ -132,6 +141,14 @@ func getTargetPositionByRayTrace():
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
 	print("Result: ", result.position, result.collider)
 	return result.position
+
+func startRunning():
+	$PlayerMeshController.startAnimation("Walk")
+	pass
+
+func stopRunning():
+	$PlayerMeshController.stopAnimation()
+	pass
 
 # Update
 func  _process(delta):
