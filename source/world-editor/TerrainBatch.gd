@@ -1,38 +1,38 @@
 tool
 extends MeshInstance
 
-var width = 64+1
-var length = 64+1
-var widthCells = width - 1
-var lengthCells = length - 1
-var offsetX = width*0.5
-var offsetZ = length*0.5
+var width
+var length
+var widthCells
+var lengthCells
+var offsetX
+var offsetZ
+var scaling
+
+var st
 
 func _ready():
-	#var heightmap = RandomDiamondSquare()
-	# Create the grid and add the y values, for now keep them at 0
-	var st = SurfaceTool.new()
-	var mesh = Mesh.new()
-	randomize()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	st = SurfaceTool.new()
+	pass
 	
+func new(_width, _height, _scaling):
+	width = _width
+	length = _height
+	widthCells = width - 1
+	lengthCells = length - 1
+	offsetX = width*0.5
+	offsetZ = length*0.5
+	scaling = _scaling
+	return self
+
+func buildMesh(noiseArray):
+	var mesh = Mesh.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	#Material ground = Material.new()
 	#Create the vertices
 	for z in range(length):
 		for x in range(width):
-			var y = 0 #Noise.simplexNoise2D(x,z)
-			
-			var u = 1
-			if x % 2 == 0:
-				u = 0
-
-			var v = 1
-			if z % 2 == 0:
-				v = 0
-
-			st.add_vertex(Vector3(x, y, z))
-			st.add_uv(Vector2(u, v))
-			#st.add_color(Color(x, z, 0))
+			st.add_vertex(Vector3(x, noiseArray[z][x]*scaling, z))
 			
 	#Create the indices for each quad in the grid
 	for row in range(0,lengthCells):
@@ -41,7 +41,7 @@ func _ready():
 			var lowerRightCorner = lowerLeftCorner + 1
 			var upperLeftCorner = lowerLeftCorner + length
 			var upperRightCorner = upperLeftCorner + 1
-		
+
 			#|/
 			st.add_index(lowerLeftCorner)
 			st.add_index(upperLeftCorner)
@@ -55,12 +55,3 @@ func _ready():
 	st.commit(mesh)
 	self.set_mesh(mesh)
 	pass
-
-func RandomDiamondSquare():
-	var heightmap = []
-	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass

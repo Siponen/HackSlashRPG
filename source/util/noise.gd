@@ -15,14 +15,14 @@ const perm = [ 151, 160, 137, 91, 90, 15,
     49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
     138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180]
 
-# TODO: Do better VolundHashing
-func VolundHash(i): 
-	return perm[i];
+# TODO: Do better hashing
+func VolundHash(i):
+	return perm[int(i) & 255];
 
 func grad(hashValue, x, y):
 	var h = hashValue & 0x3F  # Convert low 3 bits of VolundHash code
-	var u
 	
+	var u
 	if h < 4: u = x
 	else: u = y  # into 8 simple gradient directions,
 	
@@ -43,11 +43,16 @@ func grad(hashValue, x, y):
 		rightSideValue = 2.0*v # and compute the dot product with (x,y).
 		
 	return leftSideValue + rightSideValue
-	
+
+func simplexNoiseOctave2D(x,y,octaves):
+	var amplitude = 1
+	var weightTotal = 1
+	pass
+
 func simplexNoise2D(x,y):
 	#Coordinate skewing
 	var SKEW_CONSTANT = 0.36602540378
-	var UNSKEW_CONSTANT = 0.7113248654
+	var UNSKEW_CONSTANT = 0.2113248654
 	
 	var skewedRightSide = (x+y)*SKEW_CONSTANT
 	var skewedCoordinate = Vector2(x + skewedRightSide, y + skewedRightSide) #X0,Y0

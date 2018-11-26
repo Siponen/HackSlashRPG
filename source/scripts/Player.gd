@@ -139,7 +139,6 @@ func getTargetPositionByRayTrace():
 	var to = from + camera.project_ray_normal(mousePos) * rayLength
 	var space_state = get_world().direct_space_state
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
-		
 	print("Result: ", result.position, result.collider)
 	return result.position
 

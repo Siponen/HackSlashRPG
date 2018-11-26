@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PhysicsLayers="*res://source/autoload/PhysicsLayers.gd"
+Noise="*res://source/util/noise.gd"
 
 [editor_plugins]
 
