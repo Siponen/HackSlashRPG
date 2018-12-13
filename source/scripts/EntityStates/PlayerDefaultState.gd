@@ -16,6 +16,11 @@ var centerPosition
 
 var isHoldingAttack = false
 
+const SPEED = 40
+const ACCELERATION = 10
+const DE_ACCELERATION = 10
+var velocity = Vector3()
+var gravity = -100
 var isWalking = false
 
 func _init(_camera, _viewport):
@@ -83,31 +88,42 @@ func setPlayerOrentation():
 	pass
 
 func getPlayerMovementVelocity():
-	var cameraForward = camera.global_transform.basis.z.normalized()
-	var cameraLeft = camera.global_transform.basis.x.normalized()
+	var cameraForward = camera.global_transform.basis.z
+	var cameraLeft = camera.global_transform.basis.x
 	
-	var velocity = Vector3()
+	var direction = Vector3()
 	if Input.is_action_pressed("move_up"):
-		velocity -= cameraForward * parent.MOVE_SPEED
+		direction -= cameraForward
 	elif Input.is_action_pressed("move_down"):
-		velocity += cameraForward * parent.MOVE_SPEED
+		direction += cameraForward
 
 	if Input.is_action_pressed("move_left"):
-		velocity -= cameraLeft * parent.MOVE_SPEED
+		direction -= cameraLeft
 	elif Input.is_action_pressed("move_right"):
-		velocity += cameraLeft * parent.MOVE_SPEED
+		direction += cameraLeft
 
-	return velocity
+	direction.y = 0
+	return direction.normalized()
 
 func physics(delta):
-	var velocity = getPlayerMovementVelocity()
-	velocity.y = 0
-	
-	if velocity.length() > 0 and isWalking == false: #Start running
+	var walkDirection = getPlayerMovementVelocity()
+	if walkDirection.length() > 0 and isWalking == false: #Start running
 		isWalking = true
 		parent.startRunning()
-	elif velocity.length() == 0 and isWalking == true: #Stop running
+	elif walkDirection.length() == 0 and isWalking == true: #Stop running
 		isWalking = false
 		parent.stopRunning()
 	
-	parent.move_and_collide(velocity)
+	velocity.y += delta * gravity
+	var hv = velocity
+	hv.y = 0
+	var new_pos = walkDirection * SPEED
+	var accel = DE_ACCELERATION
+	
+	if (walkDirection.dot(hv) > 0):
+		accel = ACCELERATION
+	hv = hv.linear_interpolate(new_pos, accel * delta)
+	
+	velocity.x = hv.x
+	velocity.z = hv.z
+	velocity = parent.move_and_slide(velocity, Vector3(0,1,0))

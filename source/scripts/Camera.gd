@@ -2,7 +2,7 @@ extends Camera
 
 var player
 var upDirection = Vector3(0,1,0)
-var offset = Vector3(0,7,5)
+var offset = Vector3(0,10,3)
 
 func _ready():
 	set_as_toplevel(true)

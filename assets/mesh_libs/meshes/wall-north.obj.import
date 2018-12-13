@@ -1,0 +1,17 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wall-north.obj-d0e998e56d654b5918c0802c36e99040.mesh"
+
+[deps]
+
+files=[ "res://.import/wall-north.obj-d0e998e56d654b5918c0802c36e99040.mesh" ]
+
+source_file="res://assets/mesh_libs/meshes/wall-north.obj"
+dest_files=[ "res://.import/wall-north.obj-d0e998e56d654b5918c0802c36e99040.mesh", "res://.import/wall-north.obj-d0e998e56d654b5918c0802c36e99040.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )

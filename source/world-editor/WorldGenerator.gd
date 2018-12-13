@@ -21,20 +21,18 @@ var image
 var meshBatches = []
 
 func _ready():
-	$ViewportContainer.rect_min_size = Vector2(cellWidth,cellLength)
-	$ViewportContainer.rect_size = Vector2(cellWidth,cellLength)
-	$ViewportContainer/HeightmapViewport/Sprite.scale = Vector2(256 / cellWidth, 256 / cellLength)
-	terrainBatch = $TerrainBatch.new(cellWidth,cellLength,2)
 	#Heightmap texture
-	sprite = $ViewportContainer/HeightmapViewport/Sprite
-	sprite.texture
+	$WorldEditorGUI/MapCorner/HeightMap.rect_min_size = Vector2(cellWidth,cellLength)
+	$WorldEditorGUI/MapCorner/HeightMap.rect_size = Vector2(cellWidth,cellLength)
+	$WorldEditorGUI/MapCorner/HeightMap/Viewport/Sprite.scale = Vector2(256 / cellWidth, 256 / cellLength)
+	terrainBatch = $TerrainBatch.new(cellWidth,cellLength,2)
+	sprite = $WorldEditorGUI.get_node("MapCorner/HeightMap/Viewport/Sprite")
+	
 	imageTexture = ImageTexture.new()
 	image = Image.new()
 	image.create(cellWidth,cellLength, false, Image.FORMAT_RGBA8)
 	
 	makeSimplexHeightMap()
-	#makePerlinHeightMap()
-	#makeRandomHeightMap()
 	pass
 
 func simplexToNormalRange(value):
@@ -100,12 +98,12 @@ func updateSimplexHeightMapTexture(noiseArray):
 		for x in range(cellWidth):
 			#var color
 			var value = (noiseArray[y][x]+1)*0.5 #Normalize to range [0,1]
-			image.set_pixel(x,y,Color(value,value,value))
 			#if value >= 0.7: color = Color(value,value,value,1.0) #Grey / White
 			#elif value <= 0.4: color = Color(0,0,255,1.0) #Water
 			#elif value <= 0.45: color = Color(255,255,0, 1.0) #Sand
 			#else: color = Color(0,value,0) #Grass
 			#image.set_pixel(x,y,color)
+			image.set_pixel(x,y,Color(value,value,value))
 			pass
 		pass
 	image.unlock()
@@ -117,18 +115,6 @@ func makeSimplexHeightMap():
 	var simplexArray = buildSimplexMapArray(0,0)
 	updateSimplexHeightMapTexture(simplexArray)
 	terrainBatch.buildMesh(simplexArray)
-	pass
-
-func makePerlinHeightMap():
-	var perlinArray = buildPerlinMapArray()
-	updateHeightMapTexture(perlinArray)
-	terrainBatch.buildMesh(perlinArray)
-	pass
-
-func makeRandomHeightMap():
-	var randomArray = buildRandomNoiseMapArray()
-	updateHeightMapTexture(randomArray)
-	terrainBatch.buildMesh(randomArray)
 	pass
 
 func _process(delta):

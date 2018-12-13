@@ -1,0 +1,296 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/mesh_libs/meshes/wall-north.tres" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/mesh_libs/meshes/wall-east.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://assets/mesh_libs/meshes/wall-south.tres" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/mesh_libs/meshes/wall-west.tres" type="ArrayMesh" id=4]
+[ext_resource path="res://assets/mesh_libs/meshes/floor_mat.tres" type="Material" id=5]
+[ext_resource path="res://assets/mesh_libs/meshes/corner1.obj" type="ArrayMesh" id=6]
+
+[sub_resource type="ConvexPolygonShape" id=1]
+
+points = PoolVector3Array( 0.999512, 2, -1, 1, 0, -1, -1, 2, -1, -1, 0, -1 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+
+points = PoolVector3Array( 1, 2, 1, 1, 0, 1, 1, 2, -1, 1, 0, -1 )
+
+[sub_resource type="ConvexPolygonShape" id=3]
+
+points = PoolVector3Array( -1, 2, 1, -1, 0, 1, 1, 2, 1, 1, 0, 1 )
+
+[sub_resource type="ConvexPolygonShape" id=4]
+
+points = PoolVector3Array( -1, 2, -0.999512, -1, 0, -1, -1, 2, 1, -1, 0, 1 )
+
+[sub_resource type="ArrayMesh" id=6]
+
+blend_shape_mode = 1
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+surfaces/0 = {
+"aabb": AABB( -1.0001, 0, -1.0001, 2.0002, 1e-005, 2.0002 ),
+"array_data": PoolByteArray( 0, 188, 0, 0, 0, 188, 0, 60, 0, 127, 0, 0, 0, 0, 129, 129, 0, 60, 0, 0, 0, 60, 0, 0, 0, 188, 0, 60, 0, 127, 0, 0, 0, 0, 130, 129, 0, 60, 0, 60, 0, 188, 0, 0, 0, 60, 0, 60, 0, 127, 0, 0, 0, 0, 129, 129, 0, 0, 0, 0, 0, 60, 0, 0, 0, 60, 0, 60, 0, 127, 0, 0, 0, 0, 129, 129, 0, 0, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0 ),
+"blend_shape_data": [  ],
+"format": 98071,
+"index_count": 6,
+"material": ExtResource( 5 ),
+"name": "(null)",
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 4
+}
+_sections_unfolded = [ "surface_1" ]
+
+[sub_resource type="ConvexPolygonShape" id=5]
+
+points = PoolVector3Array( -0.995117, 0.00918579, -0.995117, 1.00391, 0.00918579, -0.995117, -0.995117, 0.00918579, 1.00391, 1.00391, 0.00918579, 1.00391 )
+
+[sub_resource type="ConvexPolygonShape" id=7]
+
+points = PoolVector3Array( -1, 2, 1, -1, 0, 1, -1, 2, -1, -1, 0, -1, 1, 0, -1, 1, 2, -1, -1, 0, -1, -1, 2, -1 )
+
+[node name="DungeonMeshLib" type="Spatial"]
+
+[node name="WallNorth" type="MeshInstance" parent="." index="0"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 1 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "material" ]
+
+[node name="StaticBody" type="StaticBody" parent="WallNorth" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WallNorth/StaticBody" index="0"]
+
+shape = SubResource( 1 )
+disabled = false
+
+[node name="WallEast" type="MeshInstance" parent="." index="1"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 2 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "Geometry", "material" ]
+
+[node name="StaticBody" type="StaticBody" parent="WallEast" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WallEast/StaticBody" index="0"]
+
+shape = SubResource( 2 )
+disabled = false
+
+[node name="WallSouth" type="MeshInstance" parent="." index="2"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 3 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="WallSouth" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WallSouth/StaticBody" index="0"]
+
+shape = SubResource( 3 )
+disabled = false
+
+[node name="WallWest" type="MeshInstance" parent="." index="3"]
+
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 4 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="WallWest" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="WallWest/StaticBody" index="0"]
+
+shape = SubResource( 4 )
+disabled = false
+
+[node name="Floor" type="MeshInstance" parent="." index="4"]
+
+editor/display_folded = true
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 6 )
+skeleton = NodePath("..")
+material/0 = null
+_sections_unfolded = [ "material" ]
+
+[node name="StaticBody" type="StaticBody" parent="Floor" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody" index="0"]
+
+shape = SubResource( 5 )
+disabled = false
+
+[node name="Corner1" type="MeshInstance" parent="." index="5"]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = ExtResource( 6 )
+skeleton = NodePath("..")
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Corner1" index="0"]
+
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Corner1/StaticBody" index="0"]
+
+shape = SubResource( 7 )
+disabled = false
+
+[node name="Corner2" type="MeshInstance" parent="." index="6"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = null
+skeleton = NodePath("..")
+
+[node name="Corner3" type="MeshInstance" parent="." index="7"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = null
+skeleton = NodePath("..")
+
+[node name="Corner4" type="MeshInstance" parent="." index="8"]
+
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = null
+skeleton = NodePath("..")
+
+

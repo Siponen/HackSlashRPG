@@ -1,0 +1,17 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/wall-south.obj-90cf6748ffe413813711084e8b207873.mesh"
+
+[deps]
+
+files=[ "res://.import/wall-south.obj-90cf6748ffe413813711084e8b207873.mesh" ]
+
+source_file="res://assets/mesh_libs/meshes/wall-south.obj"
+dest_files=[ "res://.import/wall-south.obj-90cf6748ffe413813711084e8b207873.mesh", "res://.import/wall-south.obj-90cf6748ffe413813711084e8b207873.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )

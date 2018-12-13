@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const MOVE_SPEED = 0.5
+const MOVE_SPEED = 1000
 
 var camera
 var upDirection = Vector3(0,1,0)
@@ -50,6 +50,8 @@ signal player_basic_attack
 signal player_reset_attack
 
 func _ready():
+	get_tree().get_root().connect("size_changed",self,"windowSizeChange")
+	
 	viewport = get_viewport()
 	centerPosition = viewport.size*0.5
 	camera = $Camera
@@ -73,6 +75,13 @@ func loadSounds():
 	loadedSounds["land"] = load("res://assets/sound/sfx_movement_jump17_landing.wav")
 	loadedSounds["dash"] = load("res://assets/sound/sfx_movement_jump14.wav")
 	loadedSounds["teleport"] = load("res://assets/sound/sfx_movement_portal1.wav")
+	pass
+
+func windowSizeChange():
+	centerPosition = get_viewport().size*0.5
+	if loadedPlayerStates.has("default"):
+		loadedPlayerStates["default"].centerPosition = centerPosition
+		pass
 	pass
 
 func initStates():

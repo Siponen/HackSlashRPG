@@ -1,0 +1,17 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/corner3.obj-36544ab77c2ac8e75df82b130ce379bb.mesh"
+
+[deps]
+
+files=[ "res://.import/corner3.obj-36544ab77c2ac8e75df82b130ce379bb.mesh" ]
+
+source_file="res://assets/mesh_libs/meshes/corner3.obj"
+dest_files=[ "res://.import/corner3.obj-36544ab77c2ac8e75df82b130ce379bb.mesh", "res://.import/corner3.obj-36544ab77c2ac8e75df82b130ce379bb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )

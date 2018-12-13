@@ -91,7 +91,6 @@ collision_mask = 19
 
 [node name="World" type="Spatial" parent="." index="1"]
 
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100.049, 0, 0 )
 script = ExtResource( 3 )
 

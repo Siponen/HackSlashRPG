@@ -6,17 +6,17 @@
 
 [sub_resource type="CapsuleShape" id=1]
 
-radius = 1.0
-height = 1.0
+radius = 0.730512
+height = 1.2624
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 
 resource_name = "Attack"
 length = 2.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 
 resource_name = "Dodge"
 length = 1.0
@@ -35,19 +35,19 @@ tracks/0/keys = {
 "values": [ false, true, false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 
 length = 6.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 
 length = 1.0
 loop = false
@@ -65,7 +65,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.95, 0.95, 0.95 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 
 length = 2.0
 loop = false
@@ -85,7 +85,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 
 resource_name = "attack2"
 length = 1.0
@@ -106,7 +106,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=9]
 
 resource_name = "attack3"
 length = 1.0
@@ -127,7 +127,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=10]
 
 length = 0.35
 loop = false
@@ -145,7 +145,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
-[node name="Player" type="KinematicBody" index="0"]
+[node name="Player" type="KinematicBody"]
 
 transform = Transform( -4.37114e-008, 0, 1, 0, 1, 0, -1, 0, -4.37114e-008, 0, 0, 0 )
 input_ray_pickable = true
@@ -187,6 +187,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="2"]
 
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 5.82252e-009, 0.205365, -0.133204 )
 shape = SubResource( 1 )
 disabled = false
 _sections_unfolded = [ "Transform" ]
@@ -211,15 +212,15 @@ autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/Attack = SubResource( 4 )
-anims/Dodge = SubResource( 5 )
-anims/HeavyAttack = SubResource( 6 )
-anims/Idle = SubResource( 7 )
-anims/Ultimate = SubResource( 8 )
-anims/attack1 = SubResource( 9 )
-anims/attack2 = SubResource( 10 )
-anims/attack3 = SubResource( 11 )
-anims/cast = SubResource( 12 )
+anims/Attack = SubResource( 2 )
+anims/Dodge = SubResource( 3 )
+anims/HeavyAttack = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Ultimate = SubResource( 6 )
+anims/attack1 = SubResource( 7 )
+anims/attack2 = SubResource( 8 )
+anims/attack3 = SubResource( 9 )
+anims/cast = SubResource( 10 )
 blend_times = [  ]
 _sections_unfolded = [ "Playback Options" ]
 
