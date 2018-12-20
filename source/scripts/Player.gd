@@ -58,7 +58,7 @@ func _ready():
 	animPlayer = $AnimationPlayer
 	animTreePlayer = $AnimationTreePlayer
 
-	skillManager = preload("res://source/prefabs/Player/SkillManager.gd").new(self, $Skills)
+	skillManager = preload("res://source/player/SkillManager.gd").new(self, $Skills)
 
 	loadSounds()
 	initStates()
@@ -148,7 +148,10 @@ func getTargetPositionByRayTrace():
 	var to = from + camera.project_ray_normal(mousePos) * rayLength
 	var space_state = get_world().direct_space_state
 	var result = space_state.intersect_ray(from, to, [self], PhysicsLayers.UNPASSABLE_GEOMETRY_VALUE)
-	print("Result: ", result.position, result.collider)
+	
+	if result.empty():
+		return null
+		
 	return result.position
 
 func startRunning():
@@ -197,10 +200,12 @@ func setPlayerState(skillStateData):
 
 # Signals
 func onHit(onHitData):
-	var health = $Health
-	health.emit_signal("damage", onHitData.damage)
+	#Signal ui
 	pass
-	
+
+func onDeath():
+	pass
+
 func onPlaySound(soundName):
 	$AudioStreamPlayer.stream = loadedSounds[soundName]
 	$AudioStreamPlayer.play()

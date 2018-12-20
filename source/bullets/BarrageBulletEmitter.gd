@@ -1,6 +1,6 @@
 extends Spatial
 
-var Bullet = preload("res://source/prefabs/bullets/Bullet.tscn")
+var Bullet = preload("res://source/bullets/Bullet.tscn")
 var upDirection = Vector3(0,1,0)
 
 var numProjectiles = 5

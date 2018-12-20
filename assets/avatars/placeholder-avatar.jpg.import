@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/clover 1.png-6b63fdde6410fee7c8d5f05a1de911b4.stex"
+path="res://.import/placeholder-avatar.jpg-64502004b8036b96e852b39732c86f7a.stex"
 
 [deps]
 
-source_file="res://assets/clover 1.png"
-dest_files=[ "res://.import/clover 1.png-6b63fdde6410fee7c8d5f05a1de911b4.stex" ]
+source_file="res://assets/avatars/placeholder-avatar.jpg"
+dest_files=[ "res://.import/placeholder-avatar.jpg-64502004b8036b96e852b39732c86f7a.stex" ]
 
 [params]
 

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://source/world-editor/DungeonGenerator.gd" type="Script" id=1]
 [ext_resource path="res://assets/mesh_libs/DungeonMeshLib.meshlib" type="MeshLibrary" id=2]
-[ext_resource path="res://source/prefabs/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/AreaText.tscn" type="PackedScene" id=4]
 
-[node name="DungeonGenerator" type="Spatial" index="0"]
+
+[node name="DungeonGenerator" type="Spatial"]
 
 script = ExtResource( 1 )
 
@@ -32,5 +34,7 @@ __meta__ = {
 [node name="Player" parent="." index="1" instance=ExtResource( 3 )]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.69526, 11.0884, 6.34835 )
+
+[node name="AreaText" parent="." index="2" instance=ExtResource( 4 )]
 
 

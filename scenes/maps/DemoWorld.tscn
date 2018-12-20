@@ -72,7 +72,7 @@ surfaces/0 = {
 "vertex_count": 8448
 }
 
-[node name="WorldGenerator" type="Spatial" index="0"]
+[node name="WorldGenerator" type="Spatial"]
 
 script = ExtResource( 1 )
 

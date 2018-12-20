@@ -71,7 +71,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 2, 2, 2 ), Vector3( 1, 1, 1 ) ]
 }
 
-[node name="Boss" type="KinematicBody" index="0"]
+[node name="Boss" type="KinematicBody"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32917, 6.67949 )
 input_ray_pickable = true
@@ -123,6 +123,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="PatternDirector" type="Spatial" parent="." index="1"]
 
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="DoomLaser" parent="PatternDirector" index="0" instance=ExtResource( 4 )]

@@ -43,8 +43,7 @@ func addDamage(damage,type):
 
 func onStartHurtbox():
 	isActive = true
-	set_collision_layer_bit(5,true)
-	set_collision_mask_bit(5,true)
+	set_collision_mask_bit(4,true)
 	show()
 	print("Start Area hurtbox")
 	pass
@@ -52,8 +51,7 @@ func onStartHurtbox():
 func onEndHurtbox():
 	isActive = false
 	targetsAlreadyHit.clear()
-	set_collision_layer_bit(5,false)
-	set_collision_mask_bit(5, false)
+	set_collision_mask_bit(4, false)
 	hide()
 	print("End Area hurtbox")
 	pass

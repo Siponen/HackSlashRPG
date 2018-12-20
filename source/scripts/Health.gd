@@ -31,7 +31,7 @@ func onDamage(damageDataArray):
 		onDeath()
 
 	print(parent.name, " took ", sumDamage, " damage")
-	parent.emit_signal("on_hit")
+	parent.emit_signal("on_hit", sumDamage)
 	pass
 
 func onHeal(healPoints):

@@ -1,6 +1,6 @@
 extends "res://source/bosses/BossPattern.gd"
 
-func _init().("attack1",500,750, 5): 
+func _init().("attack1",500,750, 5):
 	addNode("attack1", "attack2")
 	addNode("attack2", "attack3")
 	addNode("attack3", "")

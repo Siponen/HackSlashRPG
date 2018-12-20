@@ -1,0 +1,23 @@
+[gd_scene format=2]
+
+[node name="DemoDungeonA" type="Spatial" index="0"]
+
+[node name="GridMap" type="GridMap" parent="." index="0"]
+
+theme = null
+cell_size = Vector3( 2, 2, 2 )
+cell_octant_size = 8
+cell_center_x = true
+cell_center_y = true
+cell_center_z = true
+cell_scale = 1.0
+collision_layer = 1
+collision_mask = 1
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+
